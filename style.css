@@ -17,12 +17,214 @@
 }
 /* Harry P */
 
+/* root principal do site cpa */
 :root {
    --bg_base: #0A0A0C; 
+}
+
+/* root do card do github (as cores do background tão aq tmb) */
+:root {
+  --ghcard-paper: #fbfaf7;
+  --ghcard-dot: #969898;
+  --ghcard-dark: #182125;
+  --ghcard-card: #151515;
+  --ghcard-green: #79ff97;
+  --ghcard-label: #9f9f9f;
+  --ghcard-pink: #e0a0a1;
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+/* vem um html e mais coisa aq cpa */
+
+/* vamo ver se dá certo */
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: 22px 23px 17px 16px;
+  background-color: var(--ghcard-paper);
+  background-image: radial-gradient(circle, var(--ghcard-dot) 0.85px, transparent 1px);
+  background-size: 24px 24px;
+  background-position: -6px 0;
+}
+
+
+
+
+
+
+
+
+
+/* css inteiro do card do github (revisa a parte da media dps)*/
+.ghcard-frame {
+  width: 100%;
+  max-width: 556px;
+  border: 3px solid #182125;
+  background: var(--ghcard-paper);
+  box-shadow: 4px 4px 0 #182125;
+}
+
+.ghcard-titlebar {
+  min-height: 39px;
+  padding: 0 18px 0 15px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: #182125;
+  color: #fff;
+}
+
+.ghcard-titleleft {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.ghcard-titleicon { width: 18px; height: 18px; flex-shrink: 0; }
+
+.ghcard-titletext {
+  margin: 0;
+  font-family: "Arial Black", Arial, sans-serif;
+  font-size: 18px;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: 0.7px;
+  white-space: nowrap;
+  transform: scale(1.08, 0.7);
+  transform-origin: left center;
+  text-shadow: -0.6px 0 #72cbef, 0.6px 0 #e69675;
+}
+
+.ghcard-dots { display: flex; gap: 10px; flex-shrink: 0; }
+.ghcard-dots span { display: block; width: 8px; height: 8px; border-radius: 50%; }
+.ghcard-dots span:nth-child(1) { background: #f4486b; }
+.ghcard-dots span:nth-child(2) { background: #e69ca1; }
+.ghcard-dots span:nth-child(3) { background: #8d8471; }
+
+.ghcard-content { padding: 24px 24px 22px; }
+
+.ghcard-panel {
+  padding: 10px 14px 11px 10px;
+  background: #182125;
+  box-shadow: 2px 2px 0 #182125;
+}
+
+.ghcard-body {
+  position: relative;
+  min-height: 213px;
+  padding: 7px 26px 20px;
+  border: 1px solid #000;
+  border-radius: 4px;
+  background: var(--ghcard-card);
+  font-family: "Times New Roman", Times, serif;
+}
+
+.ghcard-info { min-width: 0; }
+
+.ghcard-name {
+  margin: 0 0 10px;
+  color: #fff;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 40px;
+  text-shadow: -0.65px 0 #75cefa, 0.65px 0 #e78d74;
+}
+
+.ghcard-statlist {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.ghcard-statlist li {
+  display: grid;
+  grid-template-columns: 18px 135px auto;
+  align-items: center;
+  gap: 9px;
+  min-height: 18px;
+  font-size: 15px;
+  line-height: 18px;
+}
+
+.ghcard-statlist svg { width: 18px; height: 18px; stroke: var(--ghcard-green); }
+.ghcard-label { color: var(--ghcard-label); font-weight: 700; white-space: nowrap; }
+.ghcard-value { color: var(--ghcard-label); font-style: italic; }
+
+.ghcard-octocat {
+  position: absolute;
+  right: 47px;
+  top: 57px;
+  width: 130px;
+  height: 130px;
+  fill: #fff;
+}
+
+.ghcard-button-row { display: flex; justify-content: flex-end; margin-top: 12px; }
+
+.ghcard-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 26px;
+  padding: 4px 10px;
+  border: 1px solid #4b3535;
+  background: var(--ghcard-pink);
+  color: #000;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 16px;
+  letter-spacing: 0.2px;
+  text-decoration: none;
+}
+
+.ghcard-button:hover { background: #ebb1b5; }
+.ghcard-button:active { background: #d89096; }
+.ghcard-button:focus-visible { outline: 3px solid #182125; outline-offset: 3px; }
+
+/* A composição se reorganiza em telas estreitas, sem cortar os dados. */
+@media (max-width: 570px) {
+  .ghcard-titletext { font-size: 15px; letter-spacing: 0.3px; transform: scaleY(0.75); }
+  .ghcard-content { padding: 22px 18px; }
+  .ghcard-body { padding-right: 16px; padding-left: 16px; }
+  .ghcard-statlist li { grid-template-columns: 18px 125px auto; gap: 8px; }
+  .ghcard-octocat { width: 96px; height: 96px; right: 16px; top: 74px; }
+}
+
+@media (max-width: 480px) {
+  body { padding: 20px 16px 24px 12px; }
+  .ghcard-titlebar { padding: 10px 12px; gap: 10px; }
+  .ghcard-titletext { font-size: 12px; letter-spacing: 0; }
+  .ghcard-titleleft { gap: 5px; }
+  .ghcard-dots { gap: 6px; }
+  .ghcard-dots span { width: 6px; height: 6px; }
+  .ghcard-content { padding: 20px 14px; }
+  .ghcard-panel { padding: 8px; }
+  .ghcard-body { display: flex; flex-direction: column; align-items: center; gap: 24px; padding: 14px 12px 22px; }
+  .ghcard-info { width: 100%; }
+  .ghcard-name { font-size: 30px; }
+  .ghcard-statlist li { grid-template-columns: 18px minmax(0, 1fr) 42px; gap: 8px; }
+  .ghcard-octocat { position: static; width: 110px; height: 110px; }
+  .ghcard-button { min-height: 40px; }
+}
+
+@media (max-width: 350px) {
+  .ghcard-titlebar { flex-wrap: wrap; }
+  .ghcard-titletext { white-space: normal; line-height: 1.3; }
+  .ghcard-dots { margin-left: auto; }
+  .ghcard-statlist li { grid-template-columns: 18px minmax(0, 1fr) 38px; gap: 6px; font-size: 14px; }
+  .ghcard-label { white-space: normal; }
 }
