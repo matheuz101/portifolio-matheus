@@ -1,0 +1,59 @@
+name: Atualizar LeetCode e publicar portfólio
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+  schedule:
+    - cron: '17 */6 * * *'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: portfolio-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Verificar tratamento dos dados
+        run: node --test card-leetcode/tests/data.test.mjs
+
+      - name: Coletar dados públicos do LeetCode
+        run: node card-leetcode/scripts/update-leetcode.mjs
+
+      - name: Preparar arquivos do portfólio
+        run: |
+          mkdir -p dist
+          cp index.html style.css script.js dist/
+          cp -R imgs dist/imgs
+          cp -R card-leetcode dist/card-leetcode
+          touch dist/.nojekyll
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publicar no GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

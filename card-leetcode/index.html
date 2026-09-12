@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Estatísticas e atividade de matheuz101 no LeetCode.">
+  <meta name="theme-color" content="#908571">
+  <title>matheuz101 · LeetCode Performance</title>
+  <link rel="icon" href="assets/leetcode.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <script src="data/leetcode-data.js" defer></script>
+  <script src="stats-core.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body class="lc-page">
+  <main class="lc-frame" aria-labelledby="card-title">
+    <header class="lc-titlebar">
+      <div class="lc-titleleft">
+        <img class="lc-titleicon" src="assets/leetcode.svg" alt="" width="15" height="18">
+        <h1 class="lc-titletext" id="card-title">LEETCODE PERFORMANCE</h1>
+      </div>
+      <div class="lc-window-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+    </header>
+    <div class="lc-content">
+      <div class="lc-panel">
+        <article class="lc-card" aria-labelledby="username">
+          <header class="lc-profile">
+            <img class="lc-logo" src="assets/leetcode.svg" alt="" width="25" height="30">
+            <h2 class="lc-profile-name" id="username">matheuz101</h2>
+            <span id="ranking" class="lc-ranking" aria-label="Ranking global">—</span>
+          </header>
+
+          <section class="lc-stats" aria-label="Problemas resolvidos">
+            <div class="lc-total" id="total-chart" role="img" aria-label="Carregando total de problemas resolvidos">
+              <svg viewBox="0 0 88 88" aria-hidden="true">
+                <circle class="lc-ring-track" cx="44" cy="44" r="38.5"/>
+                <circle class="lc-ring-progress" id="total-ring" cx="44" cy="44" r="38.5" pathLength="100"/>
+              </svg>
+              <span id="total-solved">—</span>
+            </div>
+            <div class="lc-difficulties">
+              <div class="lc-difficulty lc-easy">
+                <div class="lc-difficulty-label"><h3 class="lc-difficulty-title" id="easy-label">Easy</h3><span id="easy-value">— / —</span></div>
+                <div class="lc-track" id="easy-progress" role="progressbar" aria-labelledby="easy-label" aria-valuemin="0"><span id="easy-bar"></span></div>
+              </div>
+              <div class="lc-difficulty lc-medium">
+                <div class="lc-difficulty-label"><h3 class="lc-difficulty-title" id="medium-label">Medium</h3><span id="medium-value">— / —</span></div>
+                <div class="lc-track" id="medium-progress" role="progressbar" aria-labelledby="medium-label" aria-valuemin="0"><span id="medium-bar"></span></div>
+              </div>
+              <div class="lc-difficulty lc-hard">
+                <div class="lc-difficulty-label"><h3 class="lc-difficulty-title" id="hard-label">Hard</h3><span id="hard-value">— / —</span></div>
+                <div class="lc-track" id="hard-progress" role="progressbar" aria-labelledby="hard-label" aria-valuemin="0"><span id="hard-bar"></span></div>
+              </div>
+            </div>
+          </section>
+
+          <section class="lc-heatmap" aria-labelledby="heatmap-title">
+            <h3 class="lc-heatmap-title" id="heatmap-title">Heatmap (Last 52 Weeks)</h3>
+            <div class="lc-calendar" id="calendar" role="group" aria-label="Atividade diária no LeetCode. Use as setas para explorar as datas."></div>
+            <div class="lc-date-range"><span id="start-date">—</span><span id="end-date">—</span></div>
+          </section>
+          <div class="lc-tooltip" id="heatmap-tooltip" role="tooltip" hidden></div>
+        </article>
+      </div>
+      <footer class="lc-footer">
+        <p class="lc-update" id="update-status" role="status"></p>
+        <a class="lc-button" id="profile-link" href="https://leetcode.com/u/matheuz101/" target="_blank" rel="noopener noreferrer">CLICK TO VISIT LEETCODE</a>
+      </footer>
+      <noscript><p class="lc-notice">Ative o JavaScript para visualizar suas estatísticas.</p></noscript>
+    </div>
+  </main>
+</body>
+</html>

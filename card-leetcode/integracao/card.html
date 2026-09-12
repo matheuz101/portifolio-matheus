@@ -1,0 +1,56 @@
+<section id="lc-portfolio-card" class="lc-frame" data-lc-data-url="card-leetcode/data/leetcode.json" aria-labelledby="lc-card-title">
+    <header class="lc-titlebar">
+      <div class="lc-titleleft">
+        <img class="lc-titleicon" src="card-leetcode/assets/leetcode.svg" alt="" width="15" height="18">
+        <h3 class="lc-titletext" id="lc-card-title">LEETCODE PERFORMANCE</h3>
+      </div>
+      <div class="lc-window-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+    </header>
+    <div class="lc-content">
+      <div class="lc-panel">
+        <article class="lc-card" aria-labelledby="lc-username">
+          <header class="lc-profile">
+            <img class="lc-logo" src="card-leetcode/assets/leetcode.svg" alt="" width="25" height="30">
+            <h4 class="lc-profile-name" id="lc-username">matheuz101</h4>
+            <span id="lc-ranking" class="lc-ranking" aria-label="Ranking global">—</span>
+          </header>
+
+          <section class="lc-stats" aria-label="Problemas resolvidos">
+            <div class="lc-total" id="lc-total-chart" role="img" aria-label="Carregando total de problemas resolvidos">
+              <svg viewBox="0 0 88 88" aria-hidden="true">
+                <circle class="lc-ring-track" cx="44" cy="44" r="38.5"/>
+                <circle class="lc-ring-progress" id="lc-total-ring" cx="44" cy="44" r="38.5" pathLength="100"/>
+              </svg>
+              <span id="lc-total-solved">—</span>
+            </div>
+            <div class="lc-difficulties">
+              <div class="lc-difficulty lc-easy">
+                <div class="lc-difficulty-label"><h5 class="lc-difficulty-title" id="lc-easy-label">Easy</h5><span id="lc-easy-value">— / —</span></div>
+                <div class="lc-track" id="lc-easy-progress" role="progressbar" aria-labelledby="lc-easy-label" aria-valuemin="0"><span id="lc-easy-bar"></span></div>
+              </div>
+              <div class="lc-difficulty lc-medium">
+                <div class="lc-difficulty-label"><h5 class="lc-difficulty-title" id="lc-medium-label">Medium</h5><span id="lc-medium-value">— / —</span></div>
+                <div class="lc-track" id="lc-medium-progress" role="progressbar" aria-labelledby="lc-medium-label" aria-valuemin="0"><span id="lc-medium-bar"></span></div>
+              </div>
+              <div class="lc-difficulty lc-hard">
+                <div class="lc-difficulty-label"><h5 class="lc-difficulty-title" id="lc-hard-label">Hard</h5><span id="lc-hard-value">— / —</span></div>
+                <div class="lc-track" id="lc-hard-progress" role="progressbar" aria-labelledby="lc-hard-label" aria-valuemin="0"><span id="lc-hard-bar"></span></div>
+              </div>
+            </div>
+          </section>
+
+          <section class="lc-heatmap" aria-labelledby="lc-heatmap-title">
+            <h5 class="lc-heatmap-title" id="lc-heatmap-title">Heatmap (Last 52 Weeks)</h5>
+            <div class="lc-calendar" id="lc-calendar" role="group" aria-label="Atividade diária no LeetCode. Use as setas para explorar as datas."></div>
+            <div class="lc-date-range"><span id="lc-start-date">—</span><span id="lc-end-date">—</span></div>
+          </section>
+          <div class="lc-tooltip" id="lc-heatmap-tooltip" role="tooltip" hidden></div>
+        </article>
+      </div>
+      <footer class="lc-footer">
+        <p class="lc-update" id="lc-update-status" role="status"></p>
+        <a class="lc-button" id="lc-profile-link" href="https://leetcode.com/u/matheuz101/" target="_blank" rel="noopener noreferrer">CLICK TO VISIT LEETCODE</a>
+      </footer>
+      <noscript><p class="lc-notice">Ative o JavaScript para visualizar suas estatísticas.</p></noscript>
+    </div>
+  </section>

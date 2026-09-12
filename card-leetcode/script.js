@@ -1,112 +1,12 @@
-
-
-
-// GitHub Profile Stats Card — busca dados reais em tempo real.
-const GITHUB_USERNAME = 'matheuz101';
-
-function formatNumber(num) {
-  if (num >= 1000) return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
-  return String(num);
-}
-
-async function fetchAllRepos(username) {
-  let repos = [];
-  let page = 1;
-  while (page <= 5) { // limite de segurança (até 500 repositórios)
-    const res = await fetch(`https://api.github.com/users/${username}/repos?per_page=100&page=${page}`);
-    if (!res.ok) break;
-    const data = await res.json();
-    if (!Array.isArray(data) || data.length === 0) break;
-    repos = repos.concat(data);
-    if (data.length < 100) break;
-    page++;
-  }
-  return repos;
-}
-
-async function loadGithubStats() {
-  const nameEl = document.getElementById('gh-name');
-  const starsEl = document.getElementById('gh-stars');
-  const prsEl = document.getElementById('gh-prs');
-  const issuesEl = document.getElementById('gh-issues');
-  const buttonEl = document.getElementById('gh-button');
-
-  if (buttonEl) buttonEl.href = `https://github.com/${GITHUB_USERNAME}`;
-
-  try {
-    const [userRes, repos, prRes, issueRes] = await Promise.all([
-      fetch(`https://api.github.com/users/${GITHUB_USERNAME}`).then(r => r.json()),
-      fetchAllRepos(GITHUB_USERNAME),
-      fetch(`https://api.github.com/search/issues?q=author:${GITHUB_USERNAME}+type:pr`).then(r => r.json()),
-      fetch(`https://api.github.com/search/issues?q=author:${GITHUB_USERNAME}+type:issue`).then(r => r.json()),
-    ]);
-
-    if (userRes.message) throw new Error(userRes.message);
-
-    const totalStars = repos.reduce((sum, r) => sum + (r.stargazers_count || 0), 0);
-
-    if (nameEl) nameEl.textContent = userRes.name || userRes.login;
-    if (starsEl) starsEl.textContent = formatNumber(totalStars);
-    if (prsEl) prsEl.textContent = formatNumber(prRes.total_count || 0);
-    if (issuesEl) issuesEl.textContent = formatNumber(issueRes.total_count || 0);
-
-  } catch (err) {
-    if (nameEl) nameEl.textContent = GITHUB_USERNAME;
-    if (starsEl) starsEl.textContent = '?';
-    if (prsEl) prsEl.textContent = '?';
-    if (issuesEl) issuesEl.textContent = '?';
-    console.error('Não foi possível carregar os dados do GitHub:', err.message);
-  }
-}
-
-loadGithubStats();
-
-;/* LEETCODE: comportamento isolado do card integrado */
 (() => {
   'use strict';
-  const frame = document.getElementById('lc-portfolio-card');
+  const frame = document.querySelector('.lc-frame');
   if (!frame) return;
   const USERNAME = 'matheuz101';
-  const core = (() => {
-  'use strict';
-  const DAY = 86400000;
-  const names = ['Easy', 'Medium', 'Hard'];
-  const integer = value => Number.isSafeInteger(value) && value >= 0;
-
-  function validateSnapshot(data, username = 'matheuz101') {
-    if (!data || data.schemaVersion !== 1 || data.username !== username || !Number.isFinite(Date.parse(data.updatedAt))) throw new Error('Dados de perfil inválidos.');
-    if (!integer(data.totalSolved) || !integer(data.totalQuestions) || data.totalQuestions === 0 || data.totalSolved > data.totalQuestions) throw new Error('Totais inválidos.');
-    if (data.ranking !== null && !integer(data.ranking)) throw new Error('Ranking inválido.');
-    if (!Array.isArray(data.difficulties) || data.difficulties.length !== 3) throw new Error('Dificuldades ausentes.');
-    for (const name of names) {
-      const stat = data.difficulties.find(item => item.name === name);
-      if (!stat || !integer(stat.solved) || !integer(stat.total) || stat.solved > stat.total) throw new Error('Estatísticas incompletas.');
-    }
-    if (data.difficulties.reduce((n, item) => n + item.solved, 0) !== data.totalSolved || data.difficulties.reduce((n, item) => n + item.total, 0) !== data.totalQuestions) throw new Error('Totais inconsistentes.');
-    if (!data.calendar || typeof data.calendar !== 'object' || Array.isArray(data.calendar)) throw new Error('Calendário ausente.');
-    for (const [date, count] of Object.entries(data.calendar)) {
-      if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || !Number.isFinite(Date.parse(date)) || new Date(date).toISOString().slice(0, 10) !== date || !integer(count)) throw new Error('Dia de atividade inválido.');
-    }
-    return data;
-  }
-
-  function buildDays(calendar, now = new Date()) {
-    const end = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
-    return Array.from({ length: 364 }, (_, index) => {
-      const date = new Date(end - (363 - index) * DAY).toISOString().slice(0, 10);
-      return { date, count: calendar[date] || 0 };
-    });
-  }
-
-  function level(count) { return count === 0 ? 0 : count <= 2 ? 1 : count <= 5 ? 2 : count <= 9 ? 3 : 4; }
-  function percentage(solved, total) { return total > 0 ? Math.max(0, Math.min(100, solved / total * 100)) : 0; }
-  const api = { validateSnapshot, buildDays, level, percentage };
-
-    return api;
-  })();
-  // O caminho pertence ao card, mesmo com o código no script principal.
-  const dataUrl = new URL(frame.dataset.lcDataUrl, document.baseURI);
-  const byId = id => frame.querySelector(`#lc-${id}`);
+  const core = window.LeetCodeCard;
+  // Resolve os dados a partir deste script, inclusive quando usado no portfólio.
+  const dataUrl = new URL('data/leetcode.json', document.currentScript.src);
+  const byId = id => frame.querySelector(`#${id}`);
   const tooltip = byId('heatmap-tooltip');
   const calendar = byId('calendar');
   const status = byId('update-status');
@@ -206,5 +106,3 @@ loadGithubStats();
     status.dataset.state = 'error';
   }
 })();
-
-/* FIM LEETCODE */

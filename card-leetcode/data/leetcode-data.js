@@ -1,0 +1,31 @@
+// Gerado automaticamente; os mesmos dados de leetcode.json.
+window.LEETCODE_SNAPSHOT = {
+  "schemaVersion": 1,
+  "username": "matheuz101",
+  "updatedAt": "2026-09-11T22:34:37.763Z",
+  "ranking": 5000001,
+  "totalSolved": 0,
+  "totalQuestions": 4047,
+  "difficulties": [
+    {
+      "name": "Easy",
+      "solved": 0,
+      "total": 963
+    },
+    {
+      "name": "Medium",
+      "solved": 0,
+      "total": 2111
+    },
+    {
+      "name": "Hard",
+      "solved": 0,
+      "total": 973
+    }
+  ],
+  "calendarYears": [
+    2025,
+    2026
+  ],
+  "calendar": {}
+};
