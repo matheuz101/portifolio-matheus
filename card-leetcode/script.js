@@ -68,7 +68,7 @@
     const updated = new Date(data.updatedAt);
     const formatted = new Intl.DateTimeFormat('pt-BR', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' }).format(updated);
     status.textContent = `Atualizado em ${formatted}`;
-    status.title = `Última coleta válida: ${updated.toLocaleString('pt-BR')}. Atualização programada a cada 6 horas.`;
+    status.title = `Última coleta válida: ${updated.toLocaleString('pt-BR')}.`;
     status.dataset.state = Date.now() - updated.getTime() > 24 * 60 * 60 * 1000 ? 'stale' : 'ready';
     if (status.dataset.state === 'stale') status.textContent += ' · dados anteriores';
   }

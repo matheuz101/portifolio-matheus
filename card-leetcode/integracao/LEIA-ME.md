@@ -17,4 +17,10 @@ A pasta **card-leetcode** continua reunindo fontes, ícone, dados, coletor, test
 
 Edite os blocos dos arquivos principais para modificar o card do portfólio. A página card-leetcode/index.html é uma demonstração separada. Não copie as tags html, head ou body dela para dentro do portfólio.
 
+## Atualização pelo Live Server
+
+O Live Server não executa a coleta do LeetCode. Na raiz do portfólio, execute `node card-leetcode/scripts/update-leetcode.mjs --watch` e mantenha o terminal aberto: os dados são coletados imediatamente e a cada 5 minutos. O Live Server recarrega a página quando os arquivos de dados mudam. Use `Ctrl+C` para parar.
+
+Para atualizar uma única vez, execute `node card-leetcode/scripts/update-leetcode.mjs` e recarregue a página. O GitHub Actions atualiza somente o site publicado, não os arquivos locais.
+
 Nenhuma alteração foi feita no card GitHub, na introdução ou no conteúdo das demais seções. Nenhum commit ou publicação foi executado por esta integração.

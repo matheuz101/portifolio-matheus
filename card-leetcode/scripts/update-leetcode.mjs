@@ -1,6 +1,7 @@
 import { mkdir, writeFile, rename } from 'node:fs/promises';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { resolve } from 'node:path';
+import { setTimeout as delay } from 'node:timers/promises';
 import core from '../stats-core.js';
 
 const ROOT = fileURLToPath(new URL('../', import.meta.url));
@@ -53,13 +54,13 @@ export function normalizeResponse(payload, now = new Date()) {
   return core.validateSnapshot(snapshot, USERNAME);
 }
 
-export async function collect({ fetchImpl = fetch, now = new Date() } = {}) {
+export async function collect({ fetchImpl = fetch, now = new Date(), signal } = {}) {
   const year = now.getUTCFullYear();
   const response = await fetchImpl('https://leetcode.com/graphql', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', Referer: 'https://leetcode.com/' },
     body: JSON.stringify({ query: QUERY, variables: { username: USERNAME, currentYear: year, previousYear: year - 1 } }),
-    signal: AbortSignal.timeout(25000),
+    signal: signal ? AbortSignal.any([signal, AbortSignal.timeout(25000)]) : AbortSignal.timeout(25000),
   });
   if (!response.ok) {
     const error = new Error(`LeetCode indisponível (HTTP ${response.status}).`);
@@ -81,29 +82,71 @@ async function writeSnapshot(snapshot) {
   for (const [name] of files) await rename(resolve(folder, `${name}.tmp`), resolve(folder, name));
 }
 
-export async function update({ fetchImpl = fetch, now = new Date(), save = writeSnapshot, attempts = 3 } = {}) {
+export async function update({ fetchImpl = fetch, now = new Date(), save = writeSnapshot, attempts = 3, signal } = {}) {
   let failure;
   for (let attempt = 0; attempt < attempts; attempt++) {
     try {
-      const snapshot = await collect({ fetchImpl, now });
+      signal?.throwIfAborted();
+      const snapshot = await collect({ fetchImpl, now, signal });
+      signal?.throwIfAborted();
       await save(snapshot);
       return snapshot;
     } catch (error) {
+      signal?.throwIfAborted();
       failure = error;
       const transient = error.retryable || error.name === 'TimeoutError' || error.name === 'AbortError' || error instanceof TypeError;
       if (!transient || attempt === attempts - 1) break;
-      await new Promise(done => setTimeout(done, 1500 * (attempt + 1)));
+      await delay(1500 * (attempt + 1), undefined, { signal });
     }
   }
   throw failure;
 }
 
+export async function watch({ intervalMs = 5 * 60 * 1000, updateImpl = update, signal, onUpdate = () => {}, onError = () => {} } = {}) {
+  if (!Number.isFinite(intervalMs) || intervalMs <= 0) throw new Error('Intervalo de atualização inválido.');
+  while (!signal?.aborted) {
+    try {
+      const snapshot = await updateImpl({ signal });
+      if (signal?.aborted) return;
+      onUpdate(snapshot);
+    } catch (error) {
+      if (signal?.aborted) return;
+      onError(error);
+    }
+    try {
+      await delay(intervalMs, undefined, { signal });
+    } catch (error) {
+      if (signal?.aborted) return;
+      throw error;
+    }
+  }
+}
+
 if (process.argv[1] && pathToFileURL(resolve(process.argv[1])).href === import.meta.url) {
-  try {
-    const data = await update();
-    console.log(`Perfil ${data.username}: ${data.totalSolved} resolvidos. Dados atualizados em ${data.updatedAt}.`);
-  } catch (error) {
-    console.error(`${error.message} Os últimos dados válidos foram preservados; publicação cancelada.`);
-    process.exitCode = 1;
+  const report = data => console.log(`Perfil ${data.username}: ${data.totalSolved} resolvidos. Dados atualizados em ${data.updatedAt}.`);
+  if (process.argv.includes('--watch')) {
+    const controller = new AbortController();
+    const stop = () => controller.abort();
+    process.once('SIGINT', stop);
+    process.once('SIGTERM', stop);
+    console.log('Atualização local ativa: coleta agora e a cada 5 minutos. Use Ctrl+C para encerrar.');
+    try {
+      await watch({
+        signal: controller.signal,
+        onUpdate: report,
+        onError: error => console.error(`${error.message} Os últimos dados válidos foram preservados. Nova tentativa em 5 minutos.`),
+      });
+    } finally {
+      process.removeListener('SIGINT', stop);
+      process.removeListener('SIGTERM', stop);
+    }
+    console.log('Atualização local encerrada.');
+  } else {
+    try {
+      report(await update());
+    } catch (error) {
+      console.error(`${error.message} Os últimos dados válidos foram preservados; publicação cancelada.`);
+      process.exitCode = 1;
+    }
   }
 }

@@ -1,7 +1,8 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import { setTimeout as delay } from 'node:timers/promises';
 import core from '../stats-core.js';
-import { normalizeResponse, update } from '../scripts/update-leetcode.mjs';
+import { normalizeResponse, update, watch } from '../scripts/update-leetcode.mjs';
 
 function fixture() {
   return { data: {
@@ -51,4 +52,97 @@ test('Rejeita totais inconsistentes e contagens de calendário inválidas', () =
   assert.throws(() => core.validateSnapshot({ ...snapshot, totalSolved: 2 }));
   assert.throws(() => core.validateSnapshot({ ...snapshot, calendar: { '2026-02-30': 1 } }));
   assert.throws(() => core.validateSnapshot({ ...snapshot, calendar: { '2026-02-01': -1 } }));
+});
+
+test('Atualização contínua coleta imediatamente e repete sem sobrepor coletas', { timeout: 2000 }, async t => {
+  const controller = new AbortController();
+  let release;
+  const pending = new Promise(resolve => { release = resolve; });
+  t.after(() => { controller.abort(); release(); });
+  let calls = 0;
+  const results = [];
+  const running = watch({
+    intervalMs: 5,
+    signal: controller.signal,
+    updateImpl: async () => {
+      calls++;
+      if (calls === 1) await pending;
+      return calls;
+    },
+    onUpdate: result => { results.push(result); if (result === 2) controller.abort(); },
+  });
+  assert.equal(calls, 1);
+  await delay(25);
+  assert.equal(calls, 1);
+  release();
+  await running;
+  assert.deepEqual(results, [1, 2]);
+});
+
+test('Falha em uma coleta contínua preserva os dados e permite a próxima atualização', { timeout: 2000 }, async t => {
+  const controller = new AbortController();
+  t.after(() => controller.abort());
+  const previous = { totalSolved: 8 };
+  let saved = previous;
+  let calls = 0;
+  let errors = 0;
+  await watch({
+    intervalMs: 5,
+    signal: controller.signal,
+    updateImpl: options => update({
+      ...options,
+      attempts: 1,
+      fetchImpl: async () => ++calls === 1 ? { ok: false, status: 503 } : { ok: true, json: async () => fixture() },
+      save: async snapshot => { saved = snapshot; },
+    }),
+    onError: () => { errors++; assert.equal(saved, previous); },
+    onUpdate: () => controller.abort(),
+  });
+  assert.equal(calls, 2);
+  assert.equal(errors, 1);
+  assert.equal(saved.totalSolved, 0);
+});
+
+test('Cancelar a atualização contínua interrompe a espera sem iniciar outra coleta', { timeout: 2000 }, async t => {
+  const controller = new AbortController();
+  t.after(() => controller.abort());
+  let ready;
+  const firstUpdate = new Promise(resolve => { ready = resolve; });
+  let calls = 0;
+  const running = watch({
+    intervalMs: 60000,
+    signal: controller.signal,
+    updateImpl: async () => ++calls,
+    onUpdate: ready,
+    onError: assert.fail,
+  });
+  await firstUpdate;
+  controller.abort();
+  await running;
+  assert.equal(calls, 1);
+});
+
+test('Cancelar durante a consulta encerra sem retentar ou gravar dados', { timeout: 2000 }, async t => {
+  const controller = new AbortController();
+  t.after(() => controller.abort());
+  let calls = 0;
+  let saved = false;
+  const running = watch({
+    signal: controller.signal,
+    updateImpl: options => update({
+      ...options,
+      fetchImpl: (_url, { signal }) => {
+        calls++;
+        return new Promise((_resolve, reject) => signal.addEventListener('abort', () => reject(signal.reason), { once: true }));
+      },
+      save: async () => { saved = true; },
+    }),
+    onError: assert.fail,
+    onUpdate: assert.fail,
+  });
+  controller.abort();
+  await running;
+  assert.equal(calls, 1);
+  assert.equal(saved, false);
+  await watch({ signal: controller.signal, updateImpl: assert.fail });
 });
