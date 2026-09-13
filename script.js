@@ -61,7 +61,7 @@ async function loadGithubStats() {
 
 loadGithubStats();
 
-;/* LEETCODE: comportamento isolado do card integrado */
+;// LEETCODE: comportamento isolado do card integrado
 (() => {
   'use strict';
   const frame = document.getElementById('lc-portfolio-card');
@@ -207,4 +207,30 @@ loadGithubStats();
   }
 })();
 
-/* FIM LEETCODE */
+// FIM LEETCODE 
+
+// interatividade e acessibilidade para a animação das cartas na seção skills
+
+document.querySelectorAll('.skill-card').forEach((card) => {
+  function setOpen(isOpen) {
+    card.classList.toggle('open', isOpen);
+    card.setAttribute('aria-pressed', String(isOpen));
+    card.setAttribute(
+       'aria-label',
+        `${isOpen ? 'Fechar' : 'Abrir'} carta da habilidade ${card.dataset.skill}`
+        );
+ }
+
+    setOpen(card.classList.contains('open'));
+
+    // O botão nativo também responde a Enter, Espaço e toque.
+    card.addEventListener('click', () => {
+      setOpen(!card.classList.contains('open'));
+    });
+
+    card.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        setOpen(false);
+     }
+ });
+});
