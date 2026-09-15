@@ -11,6 +11,7 @@
   font-style: normal;
 }
 
+/* root do card do github */
 :root {
   --bg_base: #0a0a0c;
   --ghcard-paper: #fbfaf7;
@@ -22,6 +23,7 @@
   --ghcard-pink: #e0a0a1;
 }
 
+/* root resposividade do site */
 :root {
   --gutter: clamp(16px, 3vw, 48px);
   --page: 1200px;
