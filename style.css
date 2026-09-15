@@ -49,7 +49,7 @@ body {
   display: grid;
   place-items: center;
   padding: 22px 23px 17px 16px;
-  background-color: var(--ghcard-paper);
+  background-color: var(--bg_base);
   background-image: radial-gradient(circle, var(--ghcard-dot) 0.85px, transparent 1px);
   background-size: 24px 24px;
   background-position: -6px 0;
@@ -346,9 +346,206 @@ body {
 
 /* FIM LEETCODE */
 
+/* PROJECTS: galeria de quadros. Cada variante recorta as margens do seu PNG. */
+.projects {
+  width: min(1200px, calc(100vw - 48px));
+  margin-inline: auto;
+  padding: clamp(40px, 6vw, 72px) clamp(24px, 4vw, 48px) clamp(56px, 8vw, 96px);
+  background: transparent;
+  color: var(--ghcard-dark);
+}
+
+.projects > h2 {
+  margin: 0 0 clamp(56px, 10vw, 120px);
+  font: 700 clamp(24px, 3vw, 32px) / 1.2 "Times New Roman", Times, serif;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.container-projects {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(32px, 5vw, 64px) clamp(24px, 5vw, 64px);
+}
+
+.project-slot {
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  aspect-ratio: 1.15;
+}
+
+.project-frame {
+  --frame-tilt: 0deg;
+  position: relative;
+  isolation: isolate;
+  display: block;
+  width: 100%;
+  aspect-ratio: var(--frame-ratio);
+  transform: translateY(0) rotate(var(--frame-tilt));
+  transition: transform 250ms ease, filter 250ms ease;
+}
+
+/* O PNG fica acima da prévia; somente a abertura deixa o projeto aparecer. */
+.project-frame::after {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  background-image: var(--frame-image);
+  background-size: var(--frame-size);
+  background-position: var(--frame-position);
+  background-repeat: no-repeat;
+  pointer-events: none;
+  content: "";
+}
+
+.project-frame--gold {
+  --frame-image: url("imgs/vintage-frame5.png");
+  --frame-ratio: 802 / 588;
+  --frame-size: 170.324% 130.612%;
+  --frame-position: 52.128% 43.889%;
+}
+
+.project-frame--portrait {
+  --frame-image: url("imgs/vintage-frame4.png");
+  --frame-ratio: 499 / 614;
+  --frame-size: 273.747% 125.081%;
+  --frame-position: 49.942% 50%;
+  width: 65%;
+}
+
+.project-frame--ornate {
+  --frame-image: url("imgs/vintage-frame1.png");
+  --frame-ratio: 477 / 614;
+  --frame-size: 286.373% 125.081%;
+  --frame-position: 49.944% 50%;
+  width: 65%;
+}
+
+.project-frame--dark {
+  --frame-image: url("imgs/vintage-frame6.png");
+  --frame-ratio: 494 / 614;
+  --frame-size: 276.518% 125.081%;
+  --frame-position: 50% 50%;
+  width: 69%;
+}
+
+.project-frame--classic {
+  --frame-image: url("imgs/vintage-frame2.png");
+  --frame-ratio: 781 / 570;
+  --frame-size: 174.904% 134.737%;
+  --frame-position: 48.718% 45.455%;
+}
+
+.project-frame--bronze {
+  --frame-image: url("imgs/vintage-frame3.png");
+  --frame-ratio: 707 / 596;
+  --frame-size: 193.211% 128.859%;
+  --frame-position: 50.076% 46.512%;
+  width: 92%;
+}
+
+.project-slot:nth-child(1) .project-frame,
+.project-slot:nth-child(8) .project-frame { --frame-tilt: 6deg; }
+.project-slot:nth-child(3) .project-frame { --frame-tilt: 5deg; }
+.project-slot:nth-child(4) .project-frame,
+.project-slot:nth-child(10) .project-frame { --frame-tilt: -2deg; }
+.project-slot:nth-child(6) .project-frame,
+.project-slot:nth-child(9) .project-frame { --frame-tilt: -4deg; }
+.project-slot:nth-child(11) .project-frame { --frame-tilt: 3deg; }
+
+.project-frame--featured {
+  color: #fff;
+  text-decoration: none;
+}
+
+/* Coordenadas da abertura da moldura dourada, relativas ao recorte de 802 x 588. */
+.project-window {
+  position: absolute;
+  z-index: 1;
+  top: 13.8%;
+  left: 10.6%;
+  width: 78.2%;
+  height: 72%;
+  overflow: hidden;
+  background: #344d65;
+}
+
+.project-preview {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.project-caption {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 6px;
+  padding: 10%;
+  background: linear-gradient(transparent 15%, rgb(0 0 0 / 90%));
+  opacity: 0;
+  transition: opacity 250ms ease;
+}
+
+.project-caption strong {
+  font: 700 clamp(17px, 1.8vw, 24px) / 1.15 "Times New Roman", Times, serif;
+}
+
+.project-caption > span {
+  color: #f4d795;
+  font: 600 12px / 1.4 Arial, sans-serif;
+}
+
+.project-slot:hover .project-frame,
+.project-frame:focus-visible {
+  transform: translateY(-6px) rotate(0deg);
+  filter: drop-shadow(0 6px 14px rgb(221 164 67 / 18%));
+}
+
+.project-frame--featured:hover .project-caption,
+.project-frame--featured:focus-visible .project-caption { opacity: 1; }
+
+.project-frame--featured:focus-visible {
+  outline: 2px solid #f4d795;
+  outline-offset: 10px;
+}
+
+@media (max-width: 640px) {
+  .container-projects { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@media (max-width: 420px) {
+  .projects { width: calc(100vw - 32px); }
+  .container-projects {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 40px;
+    max-width: 280px;
+    margin-inline: auto;
+  }
+}
+
+@media (hover: none) {
+  .project-caption { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-frame,
+  .project-caption { transition: none; }
+}
+
 
 .skills-container {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 48px 32px;
+  width: min(1056px, 100%);
+  margin-inline: auto;
+  justify-items: center;
   justify-content: center;
   padding-block: 144px 48px;
 }
@@ -371,6 +568,18 @@ body {
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
  touch-action: manipulation;
+}
+
+@media (max-width: 760px) {
+  .skills-container {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .skills-container {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }
 
 .skill-card:focus-visible {
