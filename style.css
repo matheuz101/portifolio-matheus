@@ -49,7 +49,7 @@ body {
   display: grid;
   place-items: center;
   padding: 22px 23px 17px 16px;
-  background-color: var(--bg_base);
+  background-color: var(--ghcard-paper);
   background-image: radial-gradient(circle, var(--ghcard-dot) 0.85px, transparent 1px);
   background-size: 24px 24px;
   background-position: -6px 0;
