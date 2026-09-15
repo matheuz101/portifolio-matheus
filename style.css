@@ -10,6 +10,7 @@
   font-weight: normal;
   font-style: normal;
 }
+
 :root {
   --bg_base: #0a0a0c;
   --ghcard-paper: #fbfaf7;
@@ -21,6 +22,12 @@
   --ghcard-pink: #e0a0a1;
 }
 
+:root {
+  --gutter: clamp(16px, 3vw, 48px);
+  --page: 1200px;
+  --flow: clamp(48px, 6vw, 96px);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -28,12 +35,14 @@
 }
 
 body {
-  margin: 0;
-  min-height: 100vh;
   min-height: 100svh;
   display: grid;
-  place-items: center;
-  padding: 22px 23px 17px 16px;
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: center;
+  align-content: start;        /* resolve o transbordo vertical */
+  gap: var(--flow);            /* ritmo consistente entre seções */
+  padding: clamp(20px, 3vw, 40px) var(--gutter);
+
   background-color: var(--ghcard-paper);
   background-image: radial-gradient(
     circle,
@@ -797,7 +806,7 @@ body {
 
 /* PROJECTS: galeria de quadros. Cada variante recorta as margens do seu PNG. */
 .projects {
-  width: min(1200px, calc(100vw - 48px));
+  width: min(var(--page), 100% - 2 * var(--gutter));
   margin-inline: auto;
   padding: clamp(40px, 6vw, 72px) clamp(24px, 4vw, 48px) clamp(56px, 8vw, 96px);
   background: transparent;
@@ -994,7 +1003,8 @@ body {
 
 @media (max-width: 420px) {
   .projects {
-    width: calc(100vw - 32px);
+    width: min(var(--page), 100% - 2 * var(--gutter));
+    margin-inline: auto;
   }
   .container-projects {
     grid-template-columns: minmax(0, 1fr);
