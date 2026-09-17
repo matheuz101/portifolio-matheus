@@ -4,6 +4,21 @@
 @import url("https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..700;1,300..700&family=Hahmlet:wght@100..900&family=Jaldi:wght@400;700&family=Manrope:wght@200..800&family=Marcellus&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..700;1,300..700&family=Hahmlet:wght@100..900&family=Jaldi:wght@400;700&family=Manrope:wght@200..800&family=Marcellus&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
+/*
+  Hahmlet         -> font-family: "Hahmlet", serif;
+                     Pesos importados: 100 a 900; estilo normal.
+  Manrope         -> font-family: "Manrope", sans-serif;
+                     Pesos importados: 200 a 800; estilo normal.
+  Cormorant       -> font-family: "Cormorant", serif;
+                     Pesos importados: 300 a 700; normal e itálico.
+  Marcellus       -> font-family: "Marcellus", serif;
+                     Peso importado: 400; estilo normal.
+  PT Serif        -> font-family: "PT Serif", serif;
+                     Pesos importados: 400 e 700; normal e itálico.
+  Playfair Display -> font-family: "Playfair Display", serif;
+                     Pesos importados: 400 a 900; normal e itálico.
+*/
+
 @font-face {
   font-family: "HarryPotterFont";
   src: url("HARRYP__.TTF") format("truetype");
@@ -67,6 +82,221 @@ body {
   border: 0;
 }
 
+.about {
+  --about-blue: #6298ba;
+  --about-orange: #fabd85;
+  --about-green: #58896c;
+  width: 100%;
+  max-width: 1152px;
+  margin-inline: auto;
+  padding-block: 48px;
+  color: var(--ghcard-dark);
+}
+
+.about > h2 {
+  margin-bottom: 100px;
+  font: 700 32px/1.2 "Harry P", serif;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 60px;
+  letter-spacing: 3px;
+}
+
+.about-container {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 556px));
+  grid-template-rows: auto 1fr;
+  align-items: start;
+  justify-content: center;
+  gap: 24px 40px;
+}
+
+.about-sidebar {
+  display: grid;
+  grid-row: span 2;
+  gap: 24px;
+  min-width: 0;
+}
+
+.about-container > .lc-frame {
+  margin-top: 0;
+}
+
+.about-card {
+  container: about-card / inline-size;
+  width: 100%;
+  max-width: 556px;
+  min-width: 0;
+  border: 3px solid var(--ghcard-dark);
+  background: var(--ghcard-paper);
+  box-shadow: 4px 4px 0 var(--ghcard-dark);
+  font-family: "Cormorant", serif;
+}
+
+.about-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 39px;
+  padding: 8px 16px;
+  border-bottom: 3px solid var(--ghcard-dark);
+  color: #fff;
+}
+
+.about-card__header--blue {
+  background: var(--about-blue);
+}
+
+.about-card__header--orange {
+  background: var(--about-orange);
+}
+
+.about-card__header--green {
+  background: var(--about-green);
+}
+
+.about-card__header-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.about-card__header-title > span:last-child {
+  font: 900 18px/1 "Arial Black", Arial, sans-serif;
+  letter-spacing: 0.7px;
+  text-transform: uppercase;
+  transform: scaleY(0.7);
+}
+
+.about-card__icon {
+  display: block;
+  flex: 0 0 16px;
+  width: 16px;
+  height: 16px;
+}
+
+.about-card__icon img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+.about-card .ios-buttons {
+  display: flex;
+  flex-shrink: 0;
+  gap: 6px;
+}
+
+.about-card .ios-button {
+  width: 12px;
+  height: 12px;
+  border: 2px solid var(--ghcard-dark);
+  border-radius: 50%;
+}
+
+.about-card .ios-button--green { background: #254b16; }
+.about-card .ios-button--yellow { background: #95900c; }
+.about-card .ios-button--red { background: #720b0b; }
+
+.about-card__content {
+  padding: 24px;
+}
+
+.developer-bio h3 {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.8;
+}
+
+.highlight-name {
+  display: inline-block;
+  padding: 0 5px;
+  border: 2px solid var(--ghcard-dark);
+  background: var(--ghcard-pink);
+  line-height: 1.7;
+  transform: rotate(-1deg);
+}
+
+.bio-role,
+.bio-school {
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+  text-underline-offset: 3px;
+  text-decoration-color: #f4486b;
+}
+
+.bio-school {
+  text-decoration-color: #908571;
+}
+
+.developer-bio .about-card__content > p {
+  margin-top: 16px;
+  color: #777e80;
+  font-size: 18px;
+  line-height: 1.6;
+}
+
+.education-card h3 {
+  font-family: "Cormorant", serif;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.education-card h4 {
+  margin-top: 8px;
+  color: #0B5D04;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.education-info {
+  display: grid;
+  gap: 6px;
+  margin-top: 16px;
+  padding: 12px;
+  border: 2px solid var(--ghcard-dark);
+  box-shadow: 2px 2px 0 var(--ghcard-dark);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.course-work-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  padding: 24px;
+}
+
+.coursework-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  min-height: 40px;
+  padding: 10px 8px;
+  border: 2px solid var(--ghcard-dark);
+  box-shadow: 2px 2px 0 var(--ghcard-dark);
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+}
+
+.coursework-item::before {
+  flex: 0 0 10px;
+  width: 10px;
+  height: 10px;
+  border: 1px solid var(--ghcard-dark);
+  background: #f4486b;
+  content: "";
+}
+
 /* GitHub statistics card */
 .ghcard-frame {
   width: 100%;
@@ -102,6 +332,7 @@ body {
 
 .ghcard-titletext {
   margin: 0;
+  /* Fonte do sistema para o título do GitHub. */
   font-family: "Arial Black", Arial, sans-serif;
   font-size: 18px;
   font-weight: 900;
@@ -153,6 +384,7 @@ body {
   border: 1px solid #000;
   border-radius: 4px;
   background: var(--ghcard-card);
+  /* Fonte serifada do sistema para o conteúdo do GitHub. */
   font-family: "Times New Roman", Times, serif;
 }
 
@@ -229,6 +461,7 @@ body {
   border: 1px solid #4b3535;
   background: var(--ghcard-pink);
   color: #000;
+  /* Botão GitHub: tenta Arial, depois Helvetica e depois a reserva genérica. */
   font-family: Arial, Helvetica, sans-serif;
   font-size: 12px;
   font-weight: 700;
@@ -248,108 +481,6 @@ body {
   outline-offset: 3px;
 }
 
-/* A composição se reorganiza em telas estreitas, sem cortar os dados. */
-@media (max-width: 570px) {
-  .ghcard-titletext {
-    font-size: 15px;
-    letter-spacing: 0.3px;
-    transform: scaleY(0.75);
-  }
-  .ghcard-content {
-    padding: 22px 18px;
-  }
-  .ghcard-body {
-    padding-right: 16px;
-    padding-left: 16px;
-  }
-  .ghcard-statlist li {
-    grid-template-columns: 18px 125px auto;
-    gap: 8px;
-  }
-  .ghcard-octocat {
-    width: 96px;
-    height: 96px;
-    right: 16px;
-    top: 74px;
-  }
-}
-
-@media (max-width: 480px) {
-  body {
-    padding: 20px 16px 24px 12px;
-  }
-  .ghcard-titlebar {
-    padding: 10px 12px;
-    gap: 10px;
-  }
-  .ghcard-titletext {
-    font-size: 12px;
-    letter-spacing: 0;
-  }
-  .ghcard-titleleft {
-    gap: 5px;
-  }
-  .ghcard-dots {
-    gap: 6px;
-  }
-  .ghcard-dots span {
-    width: 6px;
-    height: 6px;
-  }
-  .ghcard-content {
-    padding: 20px 14px;
-  }
-  .ghcard-panel {
-    padding: 8px;
-  }
-  .ghcard-body {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 24px;
-    padding: 14px 12px 22px;
-  }
-  .ghcard-info {
-    width: 100%;
-  }
-  .ghcard-name {
-    font-size: 30px;
-  }
-  .ghcard-statlist li {
-    grid-template-columns: 18px minmax(0, 1fr) 42px;
-    gap: 8px;
-  }
-  .ghcard-octocat {
-    position: static;
-    width: 110px;
-    height: 110px;
-  }
-  .ghcard-button {
-    min-height: 40px;
-  }
-}
-
-@media (max-width: 350px) {
-  .ghcard-titlebar {
-    flex-wrap: wrap;
-  }
-  .ghcard-titletext {
-    white-space: normal;
-    line-height: 1.3;
-  }
-  .ghcard-dots {
-    margin-left: auto;
-  }
-  .ghcard-statlist li {
-    grid-template-columns: 18px minmax(0, 1fr) 38px;
-    gap: 6px;
-    font-size: 14px;
-  }
-  .ghcard-label {
-    white-space: normal;
-  }
-}
-
 /* LEETCODE: estilos isolados do card integrado */
 .lc-frame {
   container: leetcode-card / inline-size;
@@ -359,6 +490,7 @@ body {
   text-align: left;
   line-height: normal;
 }
+/* Ubuntu regular local: font-family: LeetCodeUbuntu; font-weight: 400. */
 @font-face {
   font-family: LeetCodeUbuntu;
   font-style: normal;
@@ -366,6 +498,7 @@ body {
   font-display: swap;
   src: url("card-leetcode/assets/ubuntu-regular.ttf") format("truetype");
 }
+/* Ubuntu negrito local: mesma família, selecionada com font-weight: 700. */
 @font-face {
   font-family: LeetCodeUbuntu;
   font-style: normal;
@@ -704,106 +837,6 @@ body {
 .lc-notice {
   font-size: 14px;
 }
-@container leetcode-card (max-width: 520px) {
-  .lc-titletext {
-    font-size: 16px;
-    letter-spacing: 0.3px;
-    transform: scaleY(0.75);
-  }
-}
-@container leetcode-card (max-width: 460px) {
-  .lc-titlebar {
-    padding: 9px 10px;
-    gap: 10px;
-  }
-  .lc-titletext {
-    font-size: 13px;
-    letter-spacing: 0;
-  }
-  .lc-titleleft {
-    gap: 6px;
-  }
-  .lc-window-dots {
-    gap: 4px;
-  }
-  .lc-window-dots span {
-    width: 9px;
-    height: 9px;
-  }
-  .lc-content {
-    padding: 18px 14px;
-  }
-  .lc-panel {
-    padding: 8px;
-  }
-  .lc-card {
-    padding: 14px 12px 12px;
-  }
-  .lc-profile {
-    gap: 10px;
-    flex-wrap: wrap;
-  }
-  .lc-profile-name {
-    font-size: 20px;
-  }
-  .lc-ranking {
-    font-size: 14px;
-  }
-  .lc-stats {
-    grid-template-columns: 82px minmax(0, 1fr);
-    gap: 12px;
-    padding-right: 0;
-  }
-  .lc-total {
-    width: 78px;
-    height: 78px;
-    margin-left: 0;
-  }
-  .lc-total > span {
-    font-size: 24px;
-  }
-  .lc-difficulty-title {
-    font-size: 16px;
-  }
-  .lc-difficulty-label > span {
-    font-size: 12px;
-  }
-  .lc-heatmap {
-    margin-inline: -4px;
-    padding-inline: 4px;
-  }
-  .lc-footer {
-    flex-wrap: wrap;
-  }
-  .lc-button {
-    margin-left: auto;
-    min-height: 40px;
-  }
-}
-@container leetcode-card (max-width: 310px) {
-  .lc-titlebar {
-    flex-wrap: wrap;
-  }
-  .lc-window-dots {
-    margin-left: auto;
-  }
-  .lc-stats {
-    grid-template-columns: 1fr;
-  }
-  .lc-total {
-    justify-self: center;
-  }
-  .lc-difficulties {
-    gap: 13px;
-  }
-  .lc-ranking {
-    margin-left: 35px;
-  }
-  .lc-update {
-    width: 100%;
-  }
-}
-
 /* FIM LEETCODE */
 
 /* PROJECTS: galeria de quadros. Cada variante recorta as margens do seu PNG. */
@@ -969,9 +1002,7 @@ body {
 
 .project-caption strong {
   font:
-    700 clamp(17px, 1.8vw, 24px) / 1.15 "Times New Roman",
-    Times,
-    serif;
+    700 clamp(17px, 1.8vw, 24px) / 1.15 "Cormorant", serif;
 }
 
 .project-caption > span {
@@ -997,37 +1028,6 @@ body {
   outline-offset: 10px;
 }
 
-@media (max-width: 640px) {
-  .container-projects {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 420px) {
-  .projects {
-    width: min(var(--page), 100% - 2 * var(--gutter));
-    margin-inline: auto;
-  }
-  .container-projects {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 40px;
-    max-width: 280px;
-    margin-inline: auto;
-  }
-}
-
-@media (hover: none) {
-  .project-caption {
-    opacity: 1;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .project-frame,
-  .project-caption {
-    transition: none;
-  }
-}
 
 .skills-container {
   display: grid;
@@ -1058,18 +1058,6 @@ body {
   cursor: pointer;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
-}
-
-@media (max-width: 760px) {
-  .skills-container {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 480px) {
-  .skills-container {
-    grid-template-columns: minmax(0, 1fr);
-  }
 }
 
 .skill-card:focus-visible {
@@ -1183,11 +1171,4 @@ body {
   opacity: 1;
   transform: translate(-50%, -28%) scale(1);
   transition-delay: 220ms;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .skill-card .env-flap,
-  .skill-card .env-icon {
-    transition: none;
-  }
 }
