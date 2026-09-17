@@ -41,8 +41,8 @@ body {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   justify-items: center;
-  align-content: start;        /* resolve o transbordo vertical */
-  gap: var(--flow);            /* ritmo consistente entre seções */
+  align-content: start;
+  gap: var(--flow);
   padding: clamp(20px, 3vw, 40px) var(--gutter);
 
   background-color: var(--ghcard-paper);
