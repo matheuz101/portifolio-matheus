@@ -3,22 +3,25 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="Portifólio Matheus Augusto - Desenvolvedor Fullstack">
+        <meta name="description" content="Matheus Augusto — Fullstack, Web & Mobile Developer studying IT at COTEMIG.">
         <link rel="icon" href="favicon.png" type="image/x-icon">
         <link rel="stylesheet" href="style.css">
+        <!-- Para voltar ao fundo anterior, use background-original.css neste link. -->
+        <link rel="stylesheet" href="background-stars.css">
         <title>Portifólio Matheus Augusto</title>
     </head>
     <body>
+        <div class="starfield" id="starfield" aria-hidden="true"></div>
 
-        <div id="intro-screen" role="button" tabindex="0" aria-label="Clique para entrar no portifólio">
-            <div class="starfield" id="starfield"></div>
+        <!-- Telas reservadas para a introdução futura. O portfólio abre direto no início. -->
+        <div id="intro-screen" hidden role="button" tabindex="0" aria-label="Clique para entrar no portifólio">
             <div class="container-intro-name">
                 <h1 id="intro-name">Matheus Augusto</h1>
                 <p id="intro-hint">click to reveal</p>
             </div>
         </div>
 
-        <div id="house-screen">
+        <div id="house-screen" hidden>
             <div class="container-house-title">
                 <h2 class="house-title">Chose your house</h2>
             </div>
@@ -44,53 +47,59 @@
         <main id="main-content">
 
             <header id="header">
-                <nav class="navbar">
-                    <a href="#" class="photo-header">
+                <nav class="navbar" aria-label="Main navigation">
+                    <a href="#home" class="photo-header" aria-label="Matheus — Home">
                         <div class="container-photo-logo">
-                            <img src="" alt="">
+                            <img src="imgs/img(me)-header.JPG" alt="">
                         </div>
                         <span class="photo-logo-name">Matheus</span>
                     </a>
 
-                    <ul class="nav-links">
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#skills">Skills</a></li>
-                        <li><a href="#projects">Projects</a></li>
-                        <li><a href="#contact">Contact</a></li>
+                    <ul id="primary-navigation" class="nav-links">
+                        <li><a href="#home" data-i18n="home">Home</a></li>
+                        <li><a href="#about" data-i18n="about">About</a></li>
+                        <li><a href="#skills" data-i18n="skills">Skills</a></li>
+                        <li><a href="#projects" data-i18n="projects">Projects</a></li>
+                        <li><a href="mailto:matheusss303031@gmail.com" data-i18n="contact">Contact</a></li>
                     </ul>
 
                     <div class="header-actions">
 
-                        <a href="" download class="download-cv">
-                            Download CV
-                            <div class="download-container-img">
+                        <!-- Adicione href="caminho/do-curriculo.pdf" e download quando o PDF estiver disponível. -->
+                        <a class="download-cv" role="link" aria-disabled="true" title="CV coming soon">
+                            <span data-i18n="downloadCV">Download CV</span>
+                            <span class="download-container-img" aria-hidden="true">
                                 <img src="imgs/Download.png" alt="">
-                            </div>
+                            </span>
                         </a>
 
-                        <button class="language-button" aria-label="Change Language">
-                            <img src="imgs/usa-flag.png" alt="">
+                        <button class="language-button" type="button" aria-label="Switch to Portuguese" title="Switch to Portuguese">
+                            <img class="language-flag" src="imgs/usa-flag.png" alt="English" width="40" height="28">
                         </button>
 
+                        <button class="menu-toggle" type="button" aria-label="Open menu" aria-controls="primary-navigation" aria-expanded="false">
+                            <span></span><span></span><span></span>
+                        </button>
                     </div>
                 </nav>
             </header>
 
-            <section id="home" class="home">
+          <div class="hero-shell">
+            <section id="home" class="home" aria-labelledby="home-title">
                 <div class="hero-content">
 
-                    <h1 class="home-title">
-                        Hi, I'm a <span class="dynamic-text">Fullstack</span>
-                        Developer.
+                    <h1 id="home-title" class="home-title" aria-label="Hi, I'm a Fullstack Developer.">
+                        <span data-i18n="heroGreeting">Hi, I’m a</span>
+                        <span class="hero-typing" aria-hidden="true"><span class="dynamic-text">Fullstack</span><span class="typing-cursor">|</span></span>
+                        <span class="hero-role" data-i18n="heroRole">Developer.</span>
                     </h1>
 
-                    <p class="hero-subtitle">
+                    <p class="hero-subtitle" data-i18n="heroSubtitle">
                         I am a Fullstack, Web & Mobile Developer
                         studying IT at COTEMIG.
                     </p>
 
-                    <p class="hero-description">
+                    <p class="hero-description" data-i18n="heroDescription">
                         I build interactive web applications and mobile
                         solutions with Swift, Kotlin, HTML, CSS, JavaScript
                         and OOP, creating intuitive software experiences
@@ -98,52 +107,48 @@
                     </p>
 
                     <a href="#projects" class="projects-button">
-                        Browse Projects
+                        <span data-i18n="browseProjects">Browse Projects</span>
                         <span aria-hidden="true"><img src="imgs/folder_filled.png" alt=""></span>
                     </a>
 
-                    <ul class="social-links" aria-label="Redes Sociais">
+                    <ul class="social-links" aria-label="Social links">
                         <li>
-                            <a href="mailto:matheusss303031@gmail.com" target="_blank" aria-label="Enviar e-mail">
-                                <div class="">
-                                    <img src="imgs/gmail.png" alt="">
-                                </div>
+                            <a href="mailto:matheusss303031@gmail.com" aria-label="Email">
+                                <img src="imgs/gmail.png" alt="">
                             </a>
                         </li>
                         <li>
-                            <a href="" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                                <div>
-                                    <img src="imgs/linkedin.png" alt="">
-                                </div>
+                            <a href="https://www.linkedin.com/in/matheus-augusto-alves-ramos-03a106334/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                                <img src="imgs/linkedin.png" alt="">
                             </a>
                         </li>
                         <li>
-                            <a href="" target="_blank" rel="noopener noreferrer" aria-label="Github">
+                            <a href="https://github.com/matheuz101" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
                                 <img src="imgs/github.png" alt="">
                             </a>
                         </li>
                         <li>
-                            <a href="" target="_blank" rel="noopener noreferrer" aria-label="Youtube">
+                            <a href="https://www.youtube.com/@matheuz_alr" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
                                 <img src="imgs/youtube.png" alt="">
                             </a>
                         </li>
                         <li>
-                            <a href="" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                            <a href="https://www.instagram.com/matheuz.alr/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
                                 <img src="imgs/instagram.png" alt="">
                             </a>
                         </li>
                     </ul>
 
-                    <figure class="hero-image">
-                        <img src="" alt="">
-                    </figure>
                 </div>
-
+                <figure class="hero-image">
+                    <img src="imgs/img(me)-hero.jpg" alt="Matheus Augusto" width="1140" height="722" fetchpriority="high" draggable="false">
+                </figure>
             </section>
+          </div>
 
             <section id="about" class="about">
 
-                <h2>About</h2>
+                <h2 data-i18n="about">About</h2>
 
                 <div class="about-container">
                     <aside class="about-sidebar">
@@ -383,7 +388,7 @@
 
             <section id="skills" class="skills">
 
-                <h2>Skills</h2>
+                <h2 data-i18n="skills">Skills</h2>
 
                 <div class="skills-container">
 
@@ -662,7 +667,7 @@
 
             <section id="projects" class="projects" aria-labelledby="projects-title">
 
-                <h2 id="projects-title">Projects</h2>
+                <h2 id="projects-title" data-i18n="projects">Projects</h2>
 
                 <div class="container-projects">
                     <div class="project-slot">
@@ -720,6 +725,10 @@
                 </div>
             </section>
         </main>
+        <!-- Bibliotecas locais: animações disponíveis sem depender de um CDN em cada visita. -->
+        <script src="vendor/jquery-3.7.1.min.js"></script>
+        <script src="vendor/tilt.jquery-1.2.1.min.js"></script>
+        <script src="vendor/typed-2.1.0.umd.js"></script>
         <script src="card-leetcode/data/leetcode-data.js"></script>
         <script src="script.js"></script>
     </body>

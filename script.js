@@ -1,5 +1,217 @@
+// FUNDO ESTRELADO: cria estrelas de tamanhos, posições e ritmos diferentes.
+function buildStarfield(container, count) {
+  if (!container) return;
 
+  // Monta tudo em memória antes de adicionar as estrelas à página de uma vez.
+  const frag = document.createDocumentFragment();
+  for (let i = 0; i < count; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    // Aproximadamente 8% das estrelas recebem a cor dourada.
+    if (Math.random() < 0.08) star.classList.add('star--gold');
 
+    const size = (Math.random() * 1.6 + 0.6).toFixed(2);
+    star.style.width = size + 'px';
+    star.style.height = size + 'px';
+    star.style.left = (Math.random() * 100).toFixed(2) + '%';
+    star.style.top = (Math.random() * 100).toFixed(2) + '%';
+    star.style.animationDuration = (2.5 + Math.random() * 2.5).toFixed(2) + 's';
+    star.style.animationDelay = (Math.random() * -4).toFixed(2) + 's';
+    frag.appendChild(star);
+  }
+
+  // Substitui as estrelas antigas, evitando duplicação caso a função seja chamada de novo.
+  container.replaceChildren(frag);
+}
+
+buildStarfield(document.getElementById('starfield'), 130);
+
+// HEADER E HOME: idioma, menu do celular e animações da seção principal.
+(() => {
+  'use strict';
+
+  const translations = {
+    en: {
+      home: 'Home',
+      about: 'About',
+      skills: 'Skills',
+      projects: 'Projects',
+      contact: 'Contact',
+      downloadCV: 'Download CV',
+      heroGreeting: 'Hi, I’m a',
+      heroRole: 'Developer.',
+      heroSubtitle: 'I am a Fullstack, Web & Mobile Developer\nstudying IT at COTEMIG.',
+      heroDescription: 'I build interactive web applications and mobile solutions with Swift, Kotlin, HTML, CSS, JavaScript and OOP, creating intuitive software experiences across multiple platforms and devices.',
+      browseProjects: 'Browse Projects',
+      titleLabel: 'Hi, I’m a Fullstack, Mobile App, Web, Back-End and Software Developer.',
+      languageLabel: 'Current language: English. Switch to Portuguese.',
+      openMenu: 'Open navigation menu',
+      closeMenu: 'Close navigation menu',
+      navigationLabel: 'Main navigation',
+      homeLabel: 'Matheus — Home',
+      socialLabel: 'Social links',
+      cvStatus: 'CV coming soon'
+    },
+    'pt-BR': {
+      home: 'Início',
+      about: 'Sobre',
+      skills: 'Habilidades',
+      projects: 'Projetos',
+      contact: 'Contato',
+      downloadCV: 'Baixar CV',
+      heroGreeting: 'Olá, sou',
+      heroRole: 'Desenvolvedor.',
+      heroSubtitle: 'Sou desenvolvedor Fullstack, Web e Mobile\ne estudo TI no COTEMIG.',
+      heroDescription: 'Crio aplicações web interativas e soluções mobile com Swift, Kotlin, HTML, CSS, JavaScript e POO, desenvolvendo experiências de software intuitivas para diversas plataformas e dispositivos.',
+      browseProjects: 'Ver projetos',
+      titleLabel: 'Olá, sou desenvolvedor Fullstack, Mobile App, Web, Back-End e Software.',
+      languageLabel: 'Idioma atual: Português. Mudar para inglês.',
+      openMenu: 'Abrir menu de navegação',
+      closeMenu: 'Fechar menu de navegação',
+      navigationLabel: 'Navegação principal',
+      homeLabel: 'Matheus — Início',
+      socialLabel: 'Redes sociais',
+      cvStatus: 'Currículo em breve'
+    }
+  };
+
+  const languageButton = document.querySelector('.language-button');
+  const languageFlag = languageButton?.querySelector('img');
+  const menuButton = document.querySelector('.menu-toggle');
+  const navigation = document.getElementById('primary-navigation');
+  const title = document.getElementById('home-title');
+  const typingWrapper = document.querySelector('.hero-typing');
+  const dynamicText = document.querySelector('.dynamic-text');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const coarsePointer = window.matchMedia('(pointer: coarse)');
+  const specialties = ['Fullstack', 'Mobile App', 'Web', 'Back-End', 'Software'];
+  const specialtyColors = ['#d5bbff', '#81d4fa', '#86efac', '#f6bc77', '#f5a9cc'];
+  let currentLanguage = 'en';
+  let typedInstance = null;
+  let tiltInstance = null;
+
+  // Abre/fecha a navegação no celular e mantém o botão acessível pelo teclado.
+  function setMenuOpen(isOpen) {
+    if (!menuButton || !navigation) return;
+    navigation.classList.toggle('is-open', isOpen);
+    menuButton.setAttribute('aria-expanded', String(isOpen));
+    menuButton.setAttribute('aria-label', translations[currentLanguage][isOpen ? 'closeMenu' : 'openMenu']);
+  }
+
+  // Troca os textos marcados com data-i18n e mostra a bandeira do idioma atual.
+  function setLanguage(language) {
+    currentLanguage = language;
+    document.documentElement.lang = language;
+    const texts = translations[language];
+
+    document.querySelectorAll('[data-i18n]').forEach(element => {
+      const translation = texts[element.dataset.i18n];
+      if (translation) element.textContent = translation;
+    });
+
+    if (languageFlag) {
+      languageFlag.src = language === 'en' ? 'imgs/usa-flag.png' : 'imgs/brasil-flag.png';
+      languageFlag.alt = '';
+    }
+    if (languageButton) {
+      languageButton.setAttribute('aria-label', texts.languageLabel);
+      languageButton.title = texts.languageLabel;
+    }
+    // O leitor de tela recebe uma frase estável, sem anunciar cada letra digitada.
+    if (title) title.setAttribute('aria-label', texts.titleLabel);
+    document.querySelector('.navbar')?.setAttribute('aria-label', texts.navigationLabel);
+    document.querySelector('.photo-header')?.setAttribute('aria-label', texts.homeLabel);
+    document.querySelector('.social-links')?.setAttribute('aria-label', texts.socialLabel);
+    document.querySelector('.download-cv[aria-disabled="true"]')?.setAttribute('title', texts.cvStatus);
+    setMenuOpen(false);
+  }
+
+  // Inicia o Typed.js; cada especialidade recebe uma cor antes de ser digitada.
+  function updateTyping() {
+    if (!dynamicText || !typingWrapper) return;
+    if (reducedMotion.matches || typeof window.Typed !== 'function') {
+      if (typedInstance) typedInstance.destroy();
+      typedInstance = null;
+      dynamicText.textContent = specialties[0];
+      typingWrapper.style.setProperty('--typing-color', specialtyColors[0]);
+      return;
+    }
+    if (typedInstance) return;
+
+    dynamicText.textContent = '';
+    typedInstance = new window.Typed(dynamicText, {
+      strings: specialties,
+      typeSpeed: 85,
+      backSpeed: 45,
+      startDelay: 400,
+      backDelay: 1800,
+      smartBackspace: false,
+      loop: true,
+      showCursor: false,
+      contentType: null,
+      preStringTyped(index) {
+        typingWrapper.style.setProperty('--typing-color', specialtyColors[index]);
+      }
+    });
+  }
+
+  // Inclina a foto com o mouse; desliga o efeito no toque e com movimento reduzido.
+  function updateTilt() {
+    const jQuery = window.jQuery;
+    if (!jQuery || typeof jQuery.fn.tilt !== 'function') return;
+
+    if (reducedMotion.matches || coarsePointer.matches) {
+      if (tiltInstance) {
+        jQuery.fn.tilt.destroy.call(tiltInstance);
+        tiltInstance = null;
+      }
+      return;
+    }
+    if (tiltInstance || !document.querySelector('.hero-image')) return;
+
+    tiltInstance = jQuery('.hero-image').tilt({
+      maxTilt: 10,
+      perspective: 1000,
+      scale: 1.02,
+      speed: 450,
+      reset: true,
+      glare: false
+    });
+    // Define uma posição inicial para evitar erro se o mouse sair antes de se mover.
+    jQuery.fn.tilt.getValues.call(tiltInstance);
+  }
+
+  languageButton?.addEventListener('click', () => {
+    setLanguage(currentLanguage === 'en' ? 'pt-BR' : 'en');
+  });
+  menuButton?.addEventListener('click', () => {
+    const isOpen = menuButton.getAttribute('aria-expanded') !== 'true';
+    setMenuOpen(isOpen);
+    // O menu aparece abaixo do botão no celular; leva o teclado ao primeiro link.
+    if (isOpen) navigation?.querySelector('a')?.focus();
+  });
+  navigation?.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => setMenuOpen(false));
+  });
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && menuButton?.getAttribute('aria-expanded') === 'true') {
+      setMenuOpen(false);
+      menuButton.focus();
+    }
+  });
+
+  // Aplica mudanças nas preferências do dispositivo sem duplicar as animações.
+  reducedMotion.addEventListener('change', () => {
+    updateTyping();
+    updateTilt();
+  });
+  coarsePointer.addEventListener('change', updateTilt);
+
+  // O site sempre começa em inglês, inclusive quando a página é recarregada.
+  setLanguage('en');
+  updateTyping();
+  updateTilt();
+})();
 
 // GitHub Profile Stats Card — busca dados reais em tempo real.
 const GITHUB_USERNAME = 'matheuz101';

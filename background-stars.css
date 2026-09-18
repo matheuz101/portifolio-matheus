@@ -1,0 +1,56 @@
+/* Fundo global: as estrelas ficam atrás de todas as seções. */
+body {
+  background: var(--bg_base);
+}
+
+.hero-shell {
+  background: transparent;
+}
+
+#main-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* Os títulos fora dos cards precisam de contraste com o céu escuro. */
+:is(.about, .skills, .projects) > h2 {
+  color: #f8f8f8;
+}
+
+.starfield {
+  --secondary: #d7b86d;
+  --glow: rgba(215, 184, 109, .6);
+  /* Fixed mantém o céu na tela durante a rolagem de toda a página. */
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  transition: opacity .8s ease;
+}
+
+.star {
+  position: absolute;
+  background: #fff;
+  border-radius: 50%;
+  box-shadow: 0 0 3px rgba(255, 255, 255, .6);
+  animation-name: twinkle;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+
+.star--gold {
+  background: var(--secondary);
+  box-shadow: 0 0 4px var(--glow);
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: .2; transform: scale(.8); }
+  50% { opacity: 1; transform: scale(1.15); }
+}
+
+/* Respeita a preferência por menos movimento, mantendo as estrelas visíveis. */
+@media (prefers-reduced-motion: reduce) {
+  .starfield { transition: none; }
+  .star { animation: none; opacity: .65; }
+}

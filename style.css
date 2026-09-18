@@ -1,29 +1,12 @@
-@import url("https://fonts.googleapis.com/css2?family=Hahmlet:wght@100..900&family=Jaldi:wght@400;700&family=Manrope:wght@200..800&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..700;1,300..700&family=Hahmlet:wght@100..900&family=Jaldi:wght@400;700&family=Manrope:wght@200..800&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..700;1,300..700&family=Hahmlet:wght@100..900&family=Jaldi:wght@400;700&family=Manrope:wght@200..800&family=Marcellus&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..700;1,300..700&family=Hahmlet:wght@100..900&family=Jaldi:wght@400;700&family=Manrope:wght@200..800&family=Marcellus&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300..700;1,300..700&family=Hahmlet:wght@100..900&family=Jaldi:wght@400;700&family=Manrope:wght@200..800&family=Marcellus&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url('fonts/fonts.css');
 
-/*
-  Hahmlet         -> font-family: "Hahmlet", serif;
-                     Pesos importados: 100 a 900; estilo normal.
-  Manrope         -> font-family: "Manrope", sans-serif;
-                     Pesos importados: 200 a 800; estilo normal.
-  Cormorant       -> font-family: "Cormorant", serif;
-                     Pesos importados: 300 a 700; normal e itálico.
-  Marcellus       -> font-family: "Marcellus", serif;
-                     Peso importado: 400; estilo normal.
-  PT Serif        -> font-family: "PT Serif", serif;
-                     Pesos importados: 400 e 700; normal e itálico.
-  Playfair Display -> font-family: "Playfair Display", serif;
-                     Pesos importados: 400 a 900; normal e itálico.
-*/
-
+/* Harry P: fonte local do nome no header. */
 @font-face {
   font-family: "HarryPotterFont";
   src: url("HARRYP__.TTF") format("truetype");
   font-weight: normal;
   font-style: normal;
+  font-display: swap;
 }
 
 /* root do card do github */
@@ -43,6 +26,7 @@
   --gutter: clamp(16px, 3vw, 48px);
   --page: 1200px;
   --flow: clamp(48px, 6vw, 96px);
+  --header-height: calc(clamp(8px, 1.1vw, 16px) + clamp(38px, 5.5vw, 72px));
 }
 
 * {
@@ -53,21 +37,415 @@
 
 body {
   min-height: 100svh;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  justify-items: center;
-  align-content: start;
-  gap: var(--flow);
-  padding: clamp(20px, 3vw, 40px) var(--gutter);
+}
 
-  background-color: var(--ghcard-paper);
-  background-image: radial-gradient(
-    circle,
-    var(--ghcard-dot) 0.85px,
-    transparent 1px
-  );
-  background-size: 24px 24px;
-  background-position: -6px 0;
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--header-height);
+}
+
+[hidden] {
+  display: none !important;
+}
+
+#main-content {
+  width: 100%;
+  min-width: 0;
+}
+
+#main-content > section {
+  width: calc(100% - 2 * var(--gutter));
+  margin-inline: auto;
+  scroll-margin-top: 24px;
+}
+
+/* HEADER E INÍCIO — proporções, cores e fontes do design. */
+.hero-shell {
+  min-height: calc(100svh - var(--header-height));
+  padding: 0 clamp(20px, 3.2vw, 64px) 32px;
+  color: #f8f8f8;
+}
+
+#header {
+  /* Fora da hero-shell, o sticky acompanha todas as seções da página. */
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: clamp(8px, 1.1vw, 16px) clamp(20px, 3.2vw, 64px) 0;
+  background: transparent;
+  color: #f8f8f8;
+}
+
+.navbar {
+  position: relative;
+  max-width: 1280px;
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(12px, 2vw, 28px);
+  min-height: clamp(38px, 5.5vw, 72px);
+  padding: 4px clamp(14px, 2vw, 28px) 4px 8px;
+  border-radius: 60px;
+  background: #2e2e2e;
+}
+
+/* Baixa prioridade para permitir que hover e foco alterem a cor dos links. */
+:where(#header, .hero-shell) a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.photo-header,
+.header-actions,
+.nav-links,
+.download-cv,
+.projects-button,
+.social-links {
+  display: flex;
+  align-items: center;
+}
+
+.photo-header {
+  flex-shrink: 0;
+  gap: clamp(12px, 2.2vw, 24px);
+}
+
+.container-photo-logo {
+  width: clamp(30px, 4.35vw, 56px);
+  height: clamp(30px, 4.35vw, 56px);
+  overflow: hidden;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.container-photo-logo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 35%;
+}
+
+.photo-logo-name {
+  font: 400 clamp(18px, 2.45vw, 30px)/1 "HarryPotterFont", fantasy;
+  text-transform: uppercase;
+}
+
+.nav-links {
+  gap: clamp(12px, 1.9vw, 26px);
+  margin-left: auto;
+  list-style: none;
+}
+
+.nav-links a {
+  display: block;
+  padding-block: 8px;
+  font: 600 clamp(14px, 1.85vw, 22px)/1 "Cormorant", serif;
+  transition: color 180ms ease;
+}
+
+.nav-links a:hover,
+.nav-links a:focus-visible {
+  color: #bfa4ff;
+}
+
+.header-actions {
+  gap: clamp(12px, 2.1vw, 28px);
+}
+
+/* O hover muda o fundo, o texto e os ícones dos dois botões. */
+.download-cv,
+.projects-button {
+  justify-content: center;
+  gap: clamp(10px, 1.6vw, 20px);
+  width: fit-content;
+  border: 2px solid #393939;
+  border-radius: 100px;
+  font: 700 clamp(9px, 1.25vw, 14px)/1.4 "Manrope", sans-serif;
+  white-space: nowrap;
+  transition: background-color 200ms ease, color 200ms ease, border-color 200ms ease;
+}
+
+.download-cv {
+  min-height: clamp(30px, 4vw, 46px);
+  padding: 6px clamp(10px, 1.4vw, 20px);
+  border-width: 1px;
+  border-color: #4a4a4a;
+  background: #242424;
+}
+
+.download-container-img,
+.projects-button > span[aria-hidden] {
+  display: block;
+  width: clamp(14px, 1.8vw, 21px);
+  height: clamp(14px, 1.8vw, 21px);
+}
+
+.download-container-img img,
+.projects-button img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: filter 200ms ease;
+}
+
+.download-cv:hover,
+.download-cv:focus-visible,
+.projects-button:hover,
+.projects-button:focus-visible {
+  border-color: #f8f8f8;
+  background: #f8f8f8;
+  color: #0b0b0b;
+}
+
+.download-cv:hover img,
+.download-cv:focus-visible img,
+.projects-button:hover img,
+.projects-button:focus-visible img {
+  filter: brightness(0);
+}
+
+.language-button {
+  display: grid;
+  place-items: center;
+  min-width: 36px;
+  min-height: 30px;
+  padding: 2px;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  cursor: pointer;
+  transition: background-color 180ms ease, transform 180ms ease;
+}
+
+.language-flag {
+  display: block;
+  width: clamp(34px, 5vw, 48px);
+  height: clamp(24px, 3.45vw, 34px);
+  object-fit: cover;
+}
+
+.language-button:hover {
+  background: #4a4a4a;
+  transform: translateY(-2px);
+}
+
+.menu-toggle {
+  display: none;
+}
+
+:is(#header, .hero-shell) :is(a, button):focus-visible {
+  outline: 2px solid #c0a4ff;
+  outline-offset: 5px;
+}
+
+:is(#header, .hero-shell) [aria-disabled="true"] {
+  cursor: not-allowed;
+}
+
+.home {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+  align-items: start;
+  gap: 10%;
+  max-width: 1240px;
+  margin-inline: auto;
+  padding: clamp(44px, 6.5vw, 88px) clamp(20px, 3.1vw, 40px) 40px;
+}
+
+.hero-content {
+  min-width: 0;
+}
+
+.home-title {
+  margin: 0 0 clamp(20px, 2.7vw, 36px);
+  font: 700 clamp(32px, 4.75vw, 64px)/1.22 "Cormorant", serif;
+  letter-spacing: 0.01em;
+}
+
+.hero-typing {
+  --typing-color: #c0a4ff;
+  display: inline-block;
+  min-width: 5.2em;
+  white-space: nowrap;
+  color: var(--typing-color);
+}
+
+.typing-cursor {
+  display: inline-block;
+  margin-left: 1px;
+  font-weight: 400;
+  animation: cursor-blink 900ms step-end infinite;
+}
+
+.hero-role {
+  display: block;
+}
+
+.hero-subtitle,
+.hero-description {
+  max-width: 43ch;
+  font: 400 clamp(14px, 2vw, 21px)/1.25 "Marcellus", serif;
+  color: #eee;
+}
+
+.hero-description {
+  margin-top: clamp(18px, 2.5vw, 28px);
+}
+
+.hero-subtitle {
+  white-space: pre-line;
+}
+
+.projects-button {
+  margin-top: clamp(14px, 2vw, 24px);
+  padding: clamp(7px, 1vw, 12px) clamp(16px, 2.3vw, 28px);
+  border-width: 3px;
+  background: transparent;
+}
+
+.social-links {
+  gap: clamp(12px, 1.7vw, 20px);
+  margin-top: clamp(12px, 1.7vw, 20px);
+  list-style: none;
+}
+
+.social-links a {
+  display: grid;
+  place-items: center;
+  width: clamp(26px, 3.5vw, 36px);
+  height: clamp(28px, 3.5vw, 36px);
+  transition: transform 180ms ease;
+}
+
+.social-links a[href]:hover {
+  transform: translateY(-4px);
+}
+
+.social-links img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.social-links img[src="imgs/github.png"] {
+  filter: brightness(0) invert(1);
+}
+
+.hero-image {
+  width: 100%;
+  aspect-ratio: 215 / 282;
+  margin-top: 10px;
+  overflow: hidden;
+  border-radius: clamp(12px, 1.6vw, 20px);
+  background: #fff;
+}
+
+.hero-image img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 55% center;
+}
+
+@keyframes cursor-blink {
+  50% { opacity: 0; }
+}
+
+/* No celular, os links ficam no menu e a foto vem depois da apresentação. */
+@media (max-width: 760px) {
+  .navbar { flex-wrap: wrap; }
+  .nav-links { gap: 13px; }
+  .nav-links a { font-size: 14px; }
+  .photo-header { gap: 12px; }
+  .header-actions { gap: 12px; }
+}
+
+@media (min-width: 621px) and (max-width: 760px) {
+  .navbar { gap: 12px; padding-right: 16px; }
+  .nav-links { gap: 12px; }
+  /* Mais espaço para os rótulos em português. */
+  html[lang="pt-BR"] .nav-links { gap: 8px; }
+  html[lang="pt-BR"] .nav-links a { font-size: 12px; }
+}
+
+@media (max-width: 620px) {
+  :root { --header-height: 72px; }
+  #header { padding: 14px 18px 0; }
+  .hero-shell { padding: 0 18px 48px; }
+  .navbar { min-height: 58px; gap: 10px; padding: 8px 12px 8px 8px; }
+  .container-photo-logo { width: 38px; height: 38px; }
+  .photo-logo-name { font-size: 20px; }
+  .header-actions { margin-left: auto; gap: 8px; }
+  .download-cv { min-height: 36px; padding: 7px 10px; font-size: 10px; gap: 8px; }
+  .language-button { min-height: 40px; }
+  .language-flag { width: 30px; height: 22px; }
+  .menu-toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    width: 34px;
+    height: 40px;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+  }
+  .menu-toggle span { width: 18px; height: 2px; background: currentColor; }
+  .menu-toggle:hover { background: #f8f8f8; color: #0b0b0b; }
+  .nav-links {
+    display: none;
+    order: 3;
+    flex-basis: 100%;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 4px 20px;
+    margin: 0;
+    padding: 8px;
+  }
+  .nav-links.is-open { display: flex; }
+  .nav-links a { padding: 10px 0; font-size: 18px; }
+  .navbar:has(.nav-links.is-open) { border-radius: 28px; }
+  .home { grid-template-columns: 1fr; gap: 40px; padding: 48px 8px 0; }
+  .home-title { font-size: clamp(31px, 7.9vw, 48px); }
+  .hero-subtitle, .hero-description { font-size: 16px; line-height: 1.45; }
+  .hero-description { margin-top: 22px; }
+  .projects-button { min-height: 44px; margin-top: 24px; padding: 10px 22px; font-size: 12px; }
+  .projects-button > span[aria-hidden] { width: 18px; height: 18px; }
+  .social-links { gap: 12px; margin-top: 18px; }
+  .social-links a { width: 36px; height: 40px; }
+  .social-links img { width: 28px; height: 28px; }
+  .hero-image { width: min(100%, 350px); margin: 0 auto; }
+}
+
+@media (max-width: 380px) {
+  #header, .hero-shell { padding-inline: 12px; }
+  .photo-header { gap: 6px; }
+  .container-photo-logo { width: 30px; height: 30px; }
+  .photo-logo-name { font-size: 16px; }
+  .download-cv { padding-inline: 8px; font-size: 9px; }
+  .download-container-img { display: none; }
+  .header-actions { gap: 4px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  :is(#header, .hero-shell) *, :is(#header, .hero-shell) *::before, :is(#header, .hero-shell) *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .typing-cursor { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce), (pointer: coarse) {
+  .hero-image { transform: none !important; }
 }
 
 .visually-hidden {
@@ -1171,4 +1549,59 @@ body {
   opacity: 1;
   transform: translate(-50%, -28%) scale(1);
   transition-delay: 220ms;
+}
+
+/* Os cards existentes acompanham a largura disponível nas telas menores. */
+@media (max-width: 900px) {
+  .about-container {
+    grid-template-columns: minmax(0, 556px);
+    grid-template-rows: auto;
+  }
+  .about-sidebar { grid-row: auto; }
+  .about-container > * { min-width: 0; }
+}
+
+@media (max-width: 600px) {
+  .about-card__header, .ghcard-titlebar, .lc-titlebar {
+    gap: 8px;
+    padding: 8px 12px;
+  }
+  .about-card__header-title > span:last-child,
+  .ghcard-titletext, .lc-titletext {
+    min-width: 0;
+    font-size: 14px;
+    line-height: 1.2;
+    white-space: normal;
+    transform: scaleY(0.7);
+  }
+  .about-card__content, .course-work-grid { padding: 16px; }
+  .course-work-grid { grid-template-columns: minmax(0, 1fr); }
+  .ghcard-content, .lc-content { padding: 16px 12px; }
+  .ghcard-panel, .lc-panel { padding: 8px; }
+  .ghcard-body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) clamp(48px, 15vw, 72px);
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+  }
+  .ghcard-name { font-size: 24px; line-height: 1.25; overflow-wrap: anywhere; }
+  .ghcard-statlist li { grid-template-columns: 18px minmax(0, 1fr) auto; gap: 6px; }
+  .ghcard-octocat { position: static; width: 100%; height: auto; }
+  .lc-card { padding: 12px 10px 8px; }
+  .lc-profile { flex-wrap: wrap; gap: 8px; }
+  .lc-profile-name { font-size: 20px; }
+  .lc-stats { grid-template-columns: 72px minmax(0, 1fr); gap: 12px; padding-right: 0; }
+  .lc-total { width: 72px; height: 72px; margin: 0; }
+  .lc-difficulty-title { font-size: 16px; }
+  .lc-difficulty-label > span { font-size: 12px; }
+  .lc-footer { flex-wrap: wrap; }
+  .lc-button { margin-left: auto; }
+  .lc-tooltip { white-space: normal; }
+}
+
+@media (max-width: 380px) {
+  .lc-stats { grid-template-columns: minmax(0, 1fr); }
+  .lc-total { justify-self: center; }
+  .lc-difficulties { gap: 10px; }
 }

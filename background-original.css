@@ -1,0 +1,24 @@
+/*
+ * Cópia das configurações do fundo antes da versão estrelada.
+ * Para restaurar, troque background-stars.css por background-original.css
+ * no <link> do index.html. Mantenha style.css carregado antes deste arquivo.
+ */
+body {
+  background-color: var(--ghcard-paper);
+  background-image: radial-gradient(
+    circle,
+    var(--ghcard-dot) 0.85px,
+    transparent 1px
+  );
+  background-size: 24px 24px;
+  background-position: -6px 0;
+}
+
+.hero-shell {
+  background: #0b0b0b;
+}
+
+/* Oculta a decoração quando o fundo original estiver ativo. */
+.starfield {
+  display: none;
+}
