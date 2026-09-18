@@ -383,7 +383,7 @@ html {
 .about > h2 {
   margin-top: 70px;
   margin-bottom: 100px;
-  font: 700 32px/1.2 "Harry P", serif;
+  font: 700 32px/1.2 "HarryPotterFont", serif;
   text-align: center;
   text-transform: uppercase;
   font-size: 60px;
@@ -1139,7 +1139,7 @@ html {
 .projects > h2 {
   margin-top: 100px;
   margin-bottom: 100px;
-  font: 700 32px/1.2 "Harry P", serif;
+  font: 700 32px/1.2 "HarryPotterFont", serif;
   text-align: center;
   text-transform: uppercase;
   font-size: 60px;
@@ -1318,7 +1318,7 @@ html {
 
 .skills > h2 {
   margin-top: 100px;
-  font: 700 32px/1.2 "Harry P", serif;
+  font: 700 32px/1.2 "HarryPotterFont", serif;
   text-align: center;
   text-transform: uppercase;
   font-size: 60px;
