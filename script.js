@@ -2,12 +2,12 @@
 function buildStarfield(container, count) {
   if (!container) return;
 
-  // Monta tudo em memória antes de adicionar as estrelas à página de uma vez.
+ 
   const frag = document.createDocumentFragment();
   for (let i = 0; i < count; i++) {
     const star = document.createElement('div');
     star.className = 'star';
-    // Aproximadamente 8% das estrelas recebem a cor dourada.
+    
     if (Math.random() < 0.08) star.classList.add('star--gold');
 
     const size = (Math.random() * 1.6 + 0.6).toFixed(2);
@@ -20,13 +20,13 @@ function buildStarfield(container, count) {
     frag.appendChild(star);
   }
 
-  // Substitui as estrelas antigas, evitando duplicação caso a função seja chamada de novo.
+  
   container.replaceChildren(frag);
 }
 
 buildStarfield(document.getElementById('starfield'), 130);
 
-// HEADER E HOME: idioma, menu do celular e animações da seção principal.
+
 (() => {
   'use strict';
 
@@ -90,7 +90,7 @@ buildStarfield(document.getElementById('starfield'), 130);
   let typedInstance = null;
   let tiltInstance = null;
 
-  // Abre/fecha a navegação no celular e mantém o botão acessível pelo teclado.
+  
   function setMenuOpen(isOpen) {
     if (!menuButton || !navigation) return;
     navigation.classList.toggle('is-open', isOpen);
@@ -98,7 +98,7 @@ buildStarfield(document.getElementById('starfield'), 130);
     menuButton.setAttribute('aria-label', translations[currentLanguage][isOpen ? 'closeMenu' : 'openMenu']);
   }
 
-  // Troca os textos marcados com data-i18n e mostra a bandeira do idioma atual.
+  
   function setLanguage(language) {
     currentLanguage = language;
     document.documentElement.lang = language;
@@ -117,7 +117,7 @@ buildStarfield(document.getElementById('starfield'), 130);
       languageButton.setAttribute('aria-label', texts.languageLabel);
       languageButton.title = texts.languageLabel;
     }
-    // O leitor de tela recebe uma frase estável, sem anunciar cada letra digitada.
+    
     if (title) title.setAttribute('aria-label', texts.titleLabel);
     document.querySelector('.navbar')?.setAttribute('aria-label', texts.navigationLabel);
     document.querySelector('.photo-header')?.setAttribute('aria-label', texts.homeLabel);
@@ -126,7 +126,7 @@ buildStarfield(document.getElementById('starfield'), 130);
     setMenuOpen(false);
   }
 
-  // Inicia o Typed.js; cada especialidade recebe uma cor antes de ser digitada.
+
   function updateTyping() {
     if (!dynamicText || !typingWrapper) return;
     if (reducedMotion.matches || typeof window.Typed !== 'function') {
@@ -155,7 +155,7 @@ buildStarfield(document.getElementById('starfield'), 130);
     });
   }
 
-  // Inclina a foto com o mouse; desliga o efeito no toque e com movimento reduzido.
+
   function updateTilt() {
     const jQuery = window.jQuery;
     if (!jQuery || typeof jQuery.fn.tilt !== 'function') return;
@@ -177,7 +177,7 @@ buildStarfield(document.getElementById('starfield'), 130);
       reset: true,
       glare: false
     });
-    // Define uma posição inicial para evitar erro se o mouse sair antes de se mover.
+
     jQuery.fn.tilt.getValues.call(tiltInstance);
   }
 
@@ -187,7 +187,7 @@ buildStarfield(document.getElementById('starfield'), 130);
   menuButton?.addEventListener('click', () => {
     const isOpen = menuButton.getAttribute('aria-expanded') !== 'true';
     setMenuOpen(isOpen);
-    // O menu aparece abaixo do botão no celular; leva o teclado ao primeiro link.
+    
     if (isOpen) navigation?.querySelector('a')?.focus();
   });
   navigation?.querySelectorAll('a').forEach(link => {
@@ -200,14 +200,14 @@ buildStarfield(document.getElementById('starfield'), 130);
     }
   });
 
-  // Aplica mudanças nas preferências do dispositivo sem duplicar as animações.
+  
   reducedMotion.addEventListener('change', () => {
     updateTyping();
     updateTilt();
   });
   coarsePointer.addEventListener('change', updateTilt);
 
-  // O site sempre começa em inglês, inclusive quando a página é recarregada.
+  
   setLanguage('en');
   updateTyping();
   updateTilt();
