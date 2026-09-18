@@ -381,6 +381,7 @@ html {
 }
 
 .about > h2 {
+  margin-top: 70px;
   margin-bottom: 100px;
   font: 700 32px/1.2 "Harry P", serif;
   text-align: center;
@@ -1136,13 +1137,13 @@ html {
 }
 
 .projects > h2 {
-  margin: 0 0 clamp(56px, 10vw, 120px);
-  font:
-    700 clamp(24px, 3vw, 32px) / 1.2 "Times New Roman",
-    Times,
-    serif;
+  margin-top: 100px;
+  margin-bottom: 100px;
+  font: 700 32px/1.2 "Harry P", serif;
   text-align: center;
   text-transform: uppercase;
+  font-size: 60px;
+  letter-spacing: 3px;
 }
 
 .container-projects {
@@ -1315,6 +1316,14 @@ html {
   outline-offset: 10px;
 }
 
+.skills > h2 {
+  margin-top: 100px;
+  font: 700 32px/1.2 "Harry P", serif;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 60px;
+  letter-spacing: 3px;
+}
 
 .skills-container {
   display: grid;
