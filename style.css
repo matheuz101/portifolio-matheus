@@ -59,7 +59,6 @@ html {
   scroll-margin-top: 24px;
 }
 
-/* HEADER E INÍCIO — proporções, cores e fontes do design. */
 .hero-shell {
   min-height: calc(100svh - var(--header-height));
   padding: 0 clamp(20px, 3.2vw, 64px) 32px;
@@ -67,7 +66,6 @@ html {
 }
 
 #header {
-  /* Fora da hero-shell, o sticky acompanha todas as seções da página. */
   position: sticky;
   top: 0;
   z-index: 100;
@@ -128,7 +126,7 @@ html {
 }
 
 .photo-logo-name {
-  font: 400 clamp(18px, 2.45vw, 30px)/1 "HarryPotterFont", fantasy;
+  font: 400 clamp(18px, 2.45vw, 30px)/1 "HarryPotterFont", serif;
   text-transform: uppercase;
 }
 
@@ -147,14 +145,13 @@ html {
 
 .nav-links a:hover,
 .nav-links a:focus-visible {
-  color: #bfa4ff;
+  color: #f5ce62;
 }
 
 .header-actions {
   gap: clamp(12px, 2.1vw, 28px);
 }
 
-/* O hover muda o fundo, o texto e os ícones dos dois botões. */
 .download-cv,
 .projects-button {
   justify-content: center;
@@ -234,15 +231,6 @@ html {
 
 .menu-toggle {
   display: none;
-}
-
-:is(#header, .hero-shell) :is(a, button):focus-visible {
-  outline: 2px solid #c0a4ff;
-  outline-offset: 5px;
-}
-
-:is(#header, .hero-shell) [aria-disabled="true"] {
-  cursor: not-allowed;
 }
 
 .home {
