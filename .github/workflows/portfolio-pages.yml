@@ -34,9 +34,9 @@ jobs:
       - name: Preparar arquivos do portfólio
         run: |
           mkdir -p dist
-          cp index.html style.css script.js dist/
-          cp -R imgs dist/imgs
-          cp -R card-leetcode dist/card-leetcode
+          # Inclui todos os estilos, fontes e bibliotecas usados pelas páginas.
+          cp *.html *.css *.js *.png *.TTF dist/
+          cp -R imgs fonts vendor card-leetcode dist/
           touch dist/.nojekyll
 
       - uses: actions/configure-pages@v5
