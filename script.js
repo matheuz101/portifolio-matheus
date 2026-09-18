@@ -26,6 +26,96 @@ function buildStarfield(container, count) {
 
 buildStarfield(document.getElementById('starfield'), 130);
 
+// Indicador ferroviário: apenas acompanha a rolagem nativa.
+(() => {
+  'use strict';
+
+  const scrollbar = document.querySelector('.hogwarts-scrollbar');
+  const track = scrollbar?.querySelector('.railway-track');
+  const carriage = scrollbar?.querySelector('.railway-carriage');
+  const train = scrollbar?.querySelector('.hogwarts-train');
+  if (!track || !carriage || !train) return;
+
+  const root = document.documentElement;
+  const scroller = document.scrollingElement || root;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let frame = 0;
+  let needsMeasure = true;
+  let scrollRange = 0;
+  let travel = 0;
+  let imageReady = false;
+  let moving = false;
+  let stopTimer;
+  let lastPosition;
+
+  function render() {
+    frame = 0;
+    if (needsMeasure) {
+      // Geometria só muda com o conteúdo/viewport, não a cada evento de scroll.
+      scrollRange = Math.max(0, scroller.scrollHeight - root.clientHeight);
+      travel = Math.max(0, track.clientHeight - carriage.offsetHeight - 4);
+      needsMeasure = false;
+      scrollbar.classList.toggle('is-visible', imageReady && scrollRange > 0 && travel > 0);
+    }
+
+    const progress = scrollRange > 0 ? Math.max(0, Math.min(1, window.scrollY / scrollRange)) : 0;
+    const position = (progress * travel).toFixed(2);
+    if (position !== lastPosition) {
+      carriage.style.transform = `translate3d(-50%, ${position}px, 0)`;
+      lastPosition = position;
+    }
+  }
+
+  function requestRender() {
+    if (!frame) frame = requestAnimationFrame(render);
+  }
+
+  function measure() {
+    needsMeasure = true;
+    requestRender();
+  }
+
+  function stopMoving() {
+    clearTimeout(stopTimer);
+    scrollbar.classList.remove('train-moving');
+    moving = false;
+  }
+
+  function updateImage() {
+    imageReady = train.complete && train.naturalWidth > 0;
+    root.classList.toggle('has-railway-scrollbar', imageReady);
+    if (!imageReady) stopMoving();
+    measure();
+  }
+
+  window.addEventListener('scroll', () => {
+    requestRender();
+    if (!imageReady || scrollRange <= 0 || reducedMotion.matches) return;
+    if (!moving) {
+      scrollbar.classList.add('train-moving');
+      moving = true;
+    }
+    clearTimeout(stopTimer);
+    stopTimer = setTimeout(stopMoving, 150);
+  }, { passive: true });
+
+  window.addEventListener('resize', measure, { passive: true });
+  window.addEventListener('load', measure, { once: true });
+  window.addEventListener('pageshow', measure);
+  window.addEventListener('pagehide', stopMoving);
+  reducedMotion.addEventListener('change', stopMoving);
+  train.addEventListener('load', updateImage);
+  train.addEventListener('error', updateImage);
+
+  if ('ResizeObserver' in window) {
+    const observer = new ResizeObserver(measure);
+    observer.observe(document.body);
+    observer.observe(track);
+  }
+  document.fonts?.ready.then(measure);
+  updateImage();
+})();
+
 
 (() => {
   'use strict';

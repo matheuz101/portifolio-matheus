@@ -27,6 +27,13 @@
   --page: 1200px;
   --flow: clamp(48px, 6vw, 96px);
   --header-height: calc(clamp(8px, 1.1vw, 16px) + clamp(38px, 5.5vw, 72px));
+  --rail-color: #514231;
+  --rail-wood: #392b21;
+  --rail-gold: #d7b86d;
+  --rail-highlight: var(--rail-gold);
+  --train-size: clamp(35px, 3.3vw, 46px);
+  --rail-edge: max(4px, env(safe-area-inset-right));
+  --rail-space: calc(var(--train-size) + 2 * var(--rail-edge));
 }
 
 * {
@@ -39,13 +46,125 @@ body {
   min-height: 100svh;
 }
 
+::selection {
+  background-color: #f5ce62;
+  color: #fff;
+}
+
 html {
   scroll-behavior: smooth;
   scroll-padding-top: var(--header-height);
+  scrollbar-width: thin;
+  scrollbar-color: var(--rail-gold) var(--bg_base);
 }
 
 [hidden] {
   display: none !important;
+}
+
+/* O trilho ocupa uma faixa própria; a barra nativa continua arrastável. */
+html::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+html::-webkit-scrollbar-track {
+  background: var(--bg_base);
+}
+
+html::-webkit-scrollbar-thumb {
+  border: 2px solid var(--bg_base);
+  border-radius: 8px;
+  background: var(--rail-gold);
+}
+
+.has-railway-scrollbar body {
+  padding-right: var(--rail-space);
+}
+
+.hogwarts-scrollbar {
+  --rail-top: max(12px, env(safe-area-inset-top));
+  --rail-bottom: max(12px, env(safe-area-inset-bottom));
+  position: fixed;
+  z-index: 2;
+  top: var(--rail-top);
+  right: var(--rail-edge);
+  width: var(--train-size);
+  height: calc(100vh - var(--rail-top) - var(--rail-bottom));
+  height: calc(100dvh - var(--rail-top) - var(--rail-bottom));
+  visibility: hidden;
+  pointer-events: none;
+  user-select: none;
+}
+
+.hogwarts-scrollbar.is-visible {
+  visibility: visible;
+}
+
+.railway-track {
+  position: relative;
+  width: 20px;
+  height: 100%;
+  margin-inline: auto;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0 9px,
+    var(--rail-wood) 9px 12px,
+    var(--rail-color) 12px 13px,
+    transparent 13px 25px
+  );
+}
+
+.railway-track::before,
+.railway-track::after {
+  position: absolute;
+  inset-block: 0;
+  width: 3px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--rail-color), var(--rail-highlight), var(--rail-color));
+  content: "";
+}
+
+.railway-track::before { left: 4px; }
+.railway-track::after { right: 4px; }
+
+.railway-carriage {
+  position: absolute;
+  z-index: 1;
+  top: 2px;
+  left: 50%;
+  width: var(--train-size);
+  transform: translate3d(-50%, 0, 0);
+  will-change: transform;
+}
+
+.hogwarts-train {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: saturate(.65) brightness(.9) drop-shadow(0 2px 2px var(--bg_base));
+}
+
+.train-moving .hogwarts-train {
+  animation: train-sway 240ms ease-in-out infinite;
+}
+
+@keyframes train-sway {
+  0%, 100% { transform: translateY(0) rotate(-.4deg); }
+  50% { transform: translateY(1px) rotate(.4deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hogwarts-train { animation: none !important; }
+}
+
+@media (forced-colors: active) {
+  html { scrollbar-width: auto; scrollbar-color: auto; }
+}
+
+@media print, (forced-colors: active) {
+  .hogwarts-scrollbar { display: none; }
+  .has-railway-scrollbar body { padding-right: 0; }
 }
 
 #main-content {
