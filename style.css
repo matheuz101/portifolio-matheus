@@ -9,6 +9,19 @@
   font-display: swap;
 }
 
+@media (hover: hover) and (pointer: fine) {
+  html,
+  body,
+  :disabled,
+  [aria-disabled="true"] {
+    cursor: url("imgs/cursors/nimbus-2000.png") 1 1, auto;
+  }
+
+  :is(a[href], button, [role="button"]):not(:disabled):not([aria-disabled="true"]) {
+    cursor: url("imgs/cursors/golden-snitch.png") 1 1, pointer;
+  }
+}
+
 /* root do card do github */
 :root {
   --bg_base: #0a0a0c;
@@ -1601,3 +1614,13 @@ html::-webkit-scrollbar-thumb {
   transition-delay: 220ms;
 }
 
+.contact > h2 {
+  margin-top: 70px;
+  margin-bottom: 100px;
+  font: 700 32px/1.2 "HarryPotterFont", serif;
+  color: #fff;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 60px;
+  letter-spacing: 3px;
+}
