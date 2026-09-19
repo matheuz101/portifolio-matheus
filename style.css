@@ -533,17 +533,12 @@ html::-webkit-scrollbar-thumb {
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
   .about :is(.about-card, .ghcard-frame, .lc-frame) {
     position: relative;
-    transition:
-      transform 280ms ease,
-      box-shadow 280ms ease;
+    transition: transform 280ms ease;
   }
 
   .about :is(.about-card, .ghcard-frame, .lc-frame):hover {
     z-index: 1;
     transform: translateY(-6px) scale(1.04);
-    box-shadow:
-      8px 10px 0 var(--ghcard-dark),
-      0 18px 28px rgb(0 0 0 / 20%);
   }
 }
 
