@@ -1304,6 +1304,12 @@ html::-webkit-scrollbar-thumb {
   aspect-ratio: 1.15;
 }
 
+/* Centraliza a última linha, compensando as molduras de 100% e 65% nas pontas. */
+.project-slot:nth-last-child(-n + 3) {
+  position: relative;
+  left: 8.75%;
+}
+
 .project-frame {
   --frame-tilt: 0deg;
   position: relative;
@@ -1342,6 +1348,11 @@ html::-webkit-scrollbar-thumb {
   --frame-ratio: 499 / 614;
   --frame-size: 273.747% 125.081%;
   --frame-position: 49.942% 50%;
+  --window-top: 9.6%;
+  --window-left: 11.8%;
+  --window-width: 76.6%;
+  --window-height: 80.8%;
+  --preview-position: center;
   width: 65%;
 }
 
@@ -1350,6 +1361,11 @@ html::-webkit-scrollbar-thumb {
   --frame-ratio: 477 / 614;
   --frame-size: 286.373% 125.081%;
   --frame-position: 49.944% 50%;
+  --window-top: 14.2%;
+  --window-left: 19.1%;
+  --window-width: 62.1%;
+  --window-height: 71.7%;
+  --preview-position: center;
   width: 65%;
 }
 
@@ -1358,6 +1374,11 @@ html::-webkit-scrollbar-thumb {
   --frame-ratio: 494 / 614;
   --frame-size: 276.518% 125.081%;
   --frame-position: 50% 50%;
+  --window-top: 9.9%;
+  --window-left: 11.5%;
+  --window-width: 76.2%;
+  --window-height: 80.7%;
+  --preview-position: center;
   width: 69%;
 }
 
@@ -1400,14 +1421,14 @@ html::-webkit-scrollbar-thumb {
   text-decoration: none;
 }
 
-/* Coordenadas da abertura da moldura dourada, relativas ao recorte de 802 x 588. */
+/* Cada abertura sobrepõe levemente a borda interna para evitar frestas. */
 .project-window {
   position: absolute;
   z-index: 1;
-  top: 13.8%;
-  left: 10.6%;
-  width: 78.2%;
-  height: 72%;
+  top: var(--window-top, 13.8%);
+  left: var(--window-left, 10.6%);
+  width: var(--window-width, 78.2%);
+  height: var(--window-height, 72%);
   overflow: hidden;
   background: #344d65;
 }
@@ -1417,7 +1438,7 @@ html::-webkit-scrollbar-thumb {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center top;
+  object-position: var(--preview-position, center top);
 }
 
 .project-caption {
