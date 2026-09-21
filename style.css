@@ -158,6 +158,29 @@ html::-webkit-scrollbar-thumb {
   filter: saturate(.65) brightness(.9) drop-shadow(0 2px 2px var(--bg_base));
 }
 
+.railway-carriage::before,
+.railway-carriage::after {
+  content: "";
+  position: absolute;
+  top: 14%;
+  left: 64%;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #c6d3db;
+  filter: blur(1.5px);
+  opacity: 0;
+  animation: train-smoke 2.8s ease-out infinite;
+}
+
+.railway-carriage::after { animation-delay: -1.4s; }
+
+@keyframes train-smoke {
+  0% { transform: translate(-50%, 0) scale(.5); opacity: 0; }
+  25% { opacity: .22; }
+  100% { transform: translate(-110%, -18px) scale(1.8); opacity: 0; }
+}
+
 .train-moving .hogwarts-train {
   animation: train-sway 240ms ease-in-out infinite;
 }
@@ -169,6 +192,8 @@ html::-webkit-scrollbar-thumb {
 
 @media (prefers-reduced-motion: reduce) {
   .hogwarts-train { animation: none !important; }
+  .railway-carriage::before,
+  .railway-carriage::after { display: none; animation: none; }
 }
 
 @media (forced-colors: active) {
