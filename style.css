@@ -302,7 +302,6 @@ html::-webkit-scrollbar-thumb {
   border-width: 1px;
   border-color: #4a4a4a;
   background: #242424;
-  cursor: pointer;
 }
 
 .download-container-img,
