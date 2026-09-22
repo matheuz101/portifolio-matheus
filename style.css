@@ -1,6 +1,6 @@
 @import url('fonts/fonts.css');
 
-/* Harry P: fonte local do nome no header. */
+/* Harry P: fonte local dos nomes na introdução e no header. */
 @font-face {
   font-family: "HarryPotterFont";
   src: url("HARRYP__.TTF") format("truetype");
@@ -73,6 +73,167 @@ html {
 
 [hidden] {
   display: none !important;
+}
+
+/* INTRO: as letras flutuam separadamente; o nome inteiro recebe o zoom. */
+html.intro-pending,
+.intro-pending body {
+  overflow: hidden;
+}
+
+html.intro-pending {
+  scrollbar-gutter: stable;
+}
+
+.intro-pending :is(#main-content, .site-footer) {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.intro-pending .hogwarts-scrollbar {
+  opacity: 0;
+}
+
+#intro-screen {
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  height: 100%;
+  height: 100dvh;
+  margin: 0;
+  padding: 24px;
+  overflow: hidden;
+  isolation: isolate;
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: #ffff;
+  font: 400 14px/1.5 "Manrope", sans-serif;
+  text-align: center;
+  user-select: none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+#intro-screen::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 48%, rgb(215 184 109 / 7%), transparent 58%),
+    rgb(8 9 12 / 72%);
+  opacity: 1;
+  transition: opacity 650ms ease 450ms;
+  content: "";
+}
+
+.container-intro-name {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  perspective: 1000px;
+}
+
+#intro-name {
+  display: inline-flex;
+  justify-content: center;
+  gap: .025em;
+  font: 400 clamp(64px, 18vw, 240px)/1.15 "HarryPotterFont", serif;
+  white-space: nowrap;
+  text-shadow: 0 0 55px rgb(215 184 109 / 12%);
+  transform-origin: 50% 50%;
+}
+
+.intro-letter {
+  display: inline-block;
+  animation: intro-letter-float 5s ease-in-out infinite alternate;
+}
+
+.intro-letter:nth-child(2) { animation-delay: -2.6s; animation-duration: 5.7s; }
+.intro-letter:nth-child(3) { animation-delay: -1.3s; animation-duration: 4.8s; }
+.intro-letter:nth-child(4) { animation-delay: -3.8s; animation-duration: 6.1s; }
+.intro-letter:nth-child(5) { animation-delay: -2.1s; animation-duration: 5.3s; }
+.intro-letter:nth-child(6) { animation-delay: -4.4s; animation-duration: 5.9s; }
+.intro-letter:nth-child(7) { animation-delay: -1.8s; animation-duration: 5.1s; }
+
+#intro-hint {
+  position: absolute;
+  bottom: max(48px, calc(env(safe-area-inset-bottom) + 24px));
+  left: 50%;
+  color: rgb(255 255 255 / 65%);
+  font: 300 clamp(12px, 1.2vw, 15px)/1.5 "Manrope", sans-serif;
+  letter-spacing: .16em;
+  white-space: nowrap;
+  transform: translateX(-50%);
+  transition: color 250ms ease, opacity 200ms ease;
+}
+
+#intro-screen:focus-visible {
+  outline: none;
+}
+
+#intro-screen.is-revealing {
+  pointer-events: none;
+}
+
+#intro-screen.is-revealing::before {
+  opacity: 0;
+}
+
+#intro-screen.is-revealing #intro-name {
+  will-change: transform, opacity;
+  animation: intro-name-zoom 1250ms cubic-bezier(.65, 0, .35, 1) both;
+}
+
+#intro-screen.is-revealing .intro-letter {
+  animation-play-state: paused;
+}
+
+#intro-screen.is-revealing #intro-hint {
+  opacity: 0;
+}
+
+.intro-pending.intro-revealing :is(#main-content, .site-footer) {
+  visibility: visible;
+  animation: intro-content-reveal 750ms ease 500ms both;
+}
+
+@keyframes intro-letter-float {
+  from { transform: translateY(-.014em) rotate(-.65deg); }
+  to { transform: translateY(.014em) rotate(.65deg); }
+}
+
+@keyframes intro-name-zoom {
+  0% { transform: scale(1); opacity: 1; }
+  20% { transform: scale(1.08); opacity: 1; }
+  65% { opacity: 1; }
+  100% { transform: scale(28); opacity: 0; }
+}
+
+@keyframes intro-content-reveal {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@media (max-height: 440px) {
+  #intro-name { font-size: min(18vw, 40dvh); }
+  #intro-hint { bottom: max(20px, env(safe-area-inset-bottom)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-letter,
+  #intro-screen.is-revealing #intro-name,
+  .intro-pending.intro-revealing :is(#main-content, .site-footer) {
+    animation: none;
+  }
+
+  #intro-screen::before,
+  #intro-hint {
+    transition: none;
+  }
 }
 
 /* O trilho ocupa uma faixa própria; a barra nativa continua arrastável. */

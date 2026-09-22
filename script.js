@@ -122,6 +122,8 @@ buildStarfield(document.getElementById('starfield'), 130);
 
   const translations = {
     en: {
+      introLabel: 'Reveal Matheus Augusto’s portfolio',
+      introHint: 'click to reveal',
       home: 'Home',
       about: 'About',
       skills: 'Skills',
@@ -171,6 +173,8 @@ buildStarfield(document.getElementById('starfield'), 130);
       footerContact: 'Contact'
     },
     'pt-BR': {
+      introLabel: 'Revelar o portfólio de Matheus Augusto',
+      introHint: 'clique para revelar',
       home: 'Início',
       about: 'Sobre',
       skills: 'Habilidades',
