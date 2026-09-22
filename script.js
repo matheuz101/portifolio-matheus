@@ -140,7 +140,35 @@ buildStarfield(document.getElementById('starfield'), 130);
       navigationLabel: 'Main navigation',
       homeLabel: 'Matheus — Home',
       socialLabel: 'Social links',
-      cvStatus: 'CV coming soon'
+      cvStatus: 'CV coming soon',
+      contactTitle: 'Contact me',
+      contactCta: 'Get in touch',
+      contactModalTitle: 'Let’s talk',
+      contactModalDescription: 'Choose a contact method',
+      contactClose: 'Close contact',
+      contactFormTitle: 'Send me a message',
+      contactName: 'Name',
+      contactEmail: 'E-mail',
+      contactMessage: 'Message',
+      contactNamePlaceholder: 'your name here',
+      contactEmailPlaceholder: 'your e-mail here',
+      contactMessagePlaceholder: 'your message here',
+      contactSend: 'Send me',
+      contactFormHint: 'Your message goes directly to my inbox.',
+      contactSending: 'Sending…',
+      contactSuccess: 'Message sent! Thank you for getting in touch.',
+      contactError: 'Your message could not be sent. Please try again or use one of the contact links above.',
+      contactUnconfirmed: 'We could not confirm whether your message was sent. Your text has been kept. Check your connection or use one of the contact links above.',
+      contactRateLimit: 'Too many attempts. Please wait a moment before trying again.',
+      contactRequired: 'Please fill out this field.',
+      contactSubject: 'Portfolio contact from',
+      footerNavigation: 'Navigation',
+      footerConnect: 'Connect',
+      footerRole: 'Fullstack Developer',
+      footerLocation: 'Belo Horizonte, Brazil',
+      footerRights: 'All rights reserved.',
+      footerNavigationLabel: 'Footer navigation',
+      footerContact: 'Contact'
     },
     'pt-BR': {
       home: 'Início',
@@ -161,7 +189,35 @@ buildStarfield(document.getElementById('starfield'), 130);
       navigationLabel: 'Navegação principal',
       homeLabel: 'Matheus — Início',
       socialLabel: 'Redes sociais',
-      cvStatus: 'Currículo em breve'
+      cvStatus: 'Currículo em breve',
+      contactTitle: 'Entre em contato',
+      contactCta: 'Fale comigo',
+      contactModalTitle: 'Vamos conversar',
+      contactModalDescription: 'Escolha uma forma de contato',
+      contactClose: 'Fechar contato',
+      contactFormTitle: 'Envie uma mensagem',
+      contactName: 'Nome',
+      contactEmail: 'E-mail',
+      contactMessage: 'Mensagem',
+      contactNamePlaceholder: 'seu nome',
+      contactEmailPlaceholder: 'seu e-mail',
+      contactMessagePlaceholder: 'sua mensagem',
+      contactSend: 'Enviar mensagem',
+      contactFormHint: 'Sua mensagem chega diretamente ao meu e-mail.',
+      contactSending: 'Enviando…',
+      contactSuccess: 'Mensagem enviada! Obrigado por entrar em contato.',
+      contactError: 'Não foi possível enviar sua mensagem. Tente novamente ou use uma das opções de contato acima.',
+      contactUnconfirmed: 'Não foi possível confirmar o envio. Seu texto foi mantido. Verifique sua conexão ou use uma das opções de contato acima.',
+      contactRateLimit: 'Muitas tentativas. Aguarde um momento antes de tentar novamente.',
+      contactRequired: 'Preencha este campo.',
+      contactSubject: 'Contato pelo portfólio de',
+      footerNavigation: 'Navegação',
+      footerConnect: 'Conecte-se',
+      footerRole: 'Desenvolvedor Fullstack',
+      footerLocation: 'Belo Horizonte, Brasil',
+      footerRights: 'Todos os direitos reservados.',
+      footerNavigationLabel: 'Navegação do rodapé',
+      footerContact: 'Contato'
     }
   };
 
@@ -197,6 +253,18 @@ buildStarfield(document.getElementById('starfield'), 130);
     document.querySelectorAll('[data-i18n]').forEach(element => {
       const translation = texts[element.dataset.i18n];
       if (translation) element.textContent = translation;
+    });
+
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(element => {
+      const translation = texts[element.dataset.i18nPlaceholder];
+      if (translation) element.setAttribute('placeholder', translation);
+    });
+    document.querySelectorAll('[data-i18n-aria-label]').forEach(element => {
+      const translation = texts[element.dataset.i18nAriaLabel];
+      if (translation) element.setAttribute('aria-label', translation);
+    });
+    document.querySelectorAll('#contact-form [required]').forEach(field => {
+      if (field.validity.customError) field.setCustomValidity(texts.contactRequired);
     });
 
     if (languageFlag) {
@@ -270,6 +338,201 @@ buildStarfield(document.getElementById('starfield'), 130);
 
     jQuery.fn.tilt.getValues.call(tiltInstance);
   }
+
+  function setupContact() {
+    const dialog = document.getElementById('contact-modal');
+    const panel = dialog?.querySelector('.contact-modal__panel');
+    const openButton = document.getElementById('contact-open');
+    const closeButton = document.getElementById('contact-close');
+    const form = document.getElementById('contact-form');
+    const status = document.getElementById('contact-form-status');
+    const submitButton = form?.querySelector('[type="submit"]');
+    if (!dialog || !panel || !openButton || !closeButton) return;
+
+    let closing = false;
+    let openFrame = 0;
+    let closeTimer;
+    let pointerStartedOutside = false;
+    let sending = false;
+
+    function resetDialog() {
+      cancelAnimationFrame(openFrame);
+      clearTimeout(closeTimer);
+      panel.removeEventListener('transitionend', onCloseTransition);
+      dialog.classList.remove('is-open', 'is-closing');
+      document.documentElement.classList.remove('contact-modal-open');
+      openButton.setAttribute('aria-expanded', 'false');
+      closing = false;
+      pointerStartedOutside = false;
+      if (openButton.isConnected) openButton.focus({ preventScroll: true });
+    }
+
+    function finishClose() {
+      if (dialog.open) dialog.close();
+      resetDialog();
+    }
+
+    function onCloseTransition(event) {
+      if (event.target === panel && event.propertyName === 'transform') finishClose();
+    }
+
+    function closeContact() {
+      if (!dialog.open || closing) return;
+      closing = true;
+      cancelAnimationFrame(openFrame);
+      dialog.classList.remove('is-open');
+      dialog.classList.add('is-closing');
+      if (reducedMotion.matches) {
+        finishClose();
+        return;
+      }
+      panel.addEventListener('transitionend', onCloseTransition);
+      // The timer also completes closing if the transition is interrupted.
+      closeTimer = setTimeout(finishClose, 300);
+    }
+
+    openButton.addEventListener('click', () => {
+      if (dialog.open || closing) return;
+      const origin = openButton.getBoundingClientRect();
+      document.documentElement.classList.add('contact-modal-open');
+      dialog.classList.remove('is-open', 'is-closing');
+      // Measure the panel at its final size before animating it from the button.
+      panel.style.transition = 'none';
+      panel.style.transform = 'none';
+      dialog.showModal();
+      const destination = panel.getBoundingClientRect();
+      panel.style.setProperty('--contact-origin-x', `${origin.left + origin.width / 2 - destination.left - destination.width / 2}px`);
+      panel.style.setProperty('--contact-origin-y', `${origin.top + origin.height / 2 - destination.top - destination.height / 2}px`);
+      const scale = Math.max(origin.width / destination.width, origin.height / destination.height);
+      panel.style.setProperty('--contact-origin-scale', String(Math.max(0.08, Math.min(0.9, scale))));
+      panel.style.removeProperty('transform');
+      // Commit the initial transform so the next frame can transition to the modal.
+      panel.getBoundingClientRect();
+      panel.style.removeProperty('transition');
+      openButton.setAttribute('aria-expanded', 'true');
+      closeButton.focus({ preventScroll: true });
+      if (reducedMotion.matches) dialog.classList.add('is-open');
+      else openFrame = requestAnimationFrame(() => dialog.classList.add('is-open'));
+    });
+
+    closeButton.addEventListener('click', closeContact);
+    dialog.addEventListener('cancel', event => {
+      event.preventDefault();
+      closeContact();
+    });
+    dialog.addEventListener('close', () => {
+      if (!dialog.open) resetDialog();
+    });
+    dialog.addEventListener('pointerdown', event => {
+      pointerStartedOutside = !panel.contains(event.target);
+    });
+    dialog.addEventListener('pointercancel', () => { pointerStartedOutside = false; });
+    dialog.addEventListener('click', event => {
+      if (pointerStartedOutside && !panel.contains(event.target)) closeContact();
+      pointerStartedOutside = false;
+    });
+    dialog.addEventListener('keydown', event => {
+      if (event.key !== 'Tab') return;
+      const focusable = [...panel.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]):not([type="hidden"]), textarea:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])')]
+        .filter(element => element.getClientRects().length && !element.closest('[inert]'));
+      const first = focusable[0];
+      const last = focusable.at(-1);
+      if (!first) {
+        event.preventDefault();
+        return;
+      }
+      const outside = !panel.contains(document.activeElement);
+      if (event.shiftKey && (document.activeElement === first || outside)) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && (document.activeElement === last || outside)) {
+        event.preventDefault();
+        first.focus();
+      }
+    });
+    reducedMotion.addEventListener('change', () => {
+      if (reducedMotion.matches && closing) finishClose();
+    });
+
+    function setFormStatus(key, state) {
+      if (!status) return;
+      status.dataset.i18n = key;
+      status.dataset.state = state;
+      status.textContent = translations[currentLanguage][key];
+      status.hidden = false;
+    }
+
+    form?.querySelectorAll('[required]').forEach(field => {
+      field.addEventListener('input', () => {
+        field.setCustomValidity('');
+        if (status && !sending) status.hidden = true;
+      });
+    });
+    form?.addEventListener('submit', async event => {
+      event.preventDefault();
+      if (sending || !submitButton) return;
+      const texts = translations[currentLanguage];
+      const nameField = form.elements.namedItem('name');
+      const emailField = form.elements.namedItem('email');
+      const messageField = form.elements.namedItem('message');
+      if (!nameField || !emailField || !messageField) return;
+      const fields = [nameField, emailField, messageField];
+      for (const field of fields) {
+        field.value = field.value.trim();
+        field.setCustomValidity(field.value ? '' : texts.contactRequired);
+      }
+      if (!form.reportValidity()) return;
+      if (form.elements.namedItem('botcheck')?.checked) {
+        setFormStatus('contactError', 'error');
+        return;
+      }
+
+      const data = Object.fromEntries(new FormData(form));
+      data.subject = `${texts.contactSubject} ${nameField.value}`;
+      sending = true;
+      submitButton.disabled = true;
+      submitButton.setAttribute('aria-busy', 'true');
+      submitButton.dataset.i18n = 'contactSending';
+      submitButton.textContent = texts.contactSending;
+      fields.forEach(field => { field.readOnly = true; });
+      setFormStatus('contactSending', 'sending');
+
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 20000);
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify(data),
+          signal: controller.signal
+        });
+        if (!response.ok) {
+          setFormStatus(response.status === 429 ? 'contactRateLimit' : 'contactError', 'error');
+          return;
+        }
+        const result = await response.json();
+        if (result.success !== true) {
+          setFormStatus('contactError', 'error');
+          return;
+        }
+        form.reset();
+        setFormStatus('contactSuccess', 'success');
+      } catch {
+        // A lost response does not guarantee that the service failed to send.
+        setFormStatus('contactUnconfirmed', 'error');
+      } finally {
+        clearTimeout(timeout);
+        sending = false;
+        fields.forEach(field => { field.readOnly = false; });
+        submitButton.disabled = false;
+        submitButton.removeAttribute('aria-busy');
+        submitButton.dataset.i18n = 'contactSend';
+        submitButton.textContent = translations[currentLanguage].contactSend;
+      }
+    });
+  }
+
+  setupContact();
 
   languageButton?.addEventListener('click', () => {
     setLanguage(currentLanguage === 'en' ? 'pt-BR' : 'en');
