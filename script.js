@@ -147,7 +147,7 @@ buildStarfield(document.getElementById('starfield'), 130);
       about: 'Sobre',
       skills: 'Habilidades',
       projects: 'Projetos',
-      contact: 'Contato',
+      contact: 'Entre em contato',
       downloadCV: 'Baixar CV',
       heroGreeting: 'Olá, sou',
       heroRole: 'Desenvolvedor.',
