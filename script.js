@@ -260,6 +260,10 @@ buildStarfield(document.getElementById('starfield'), 130);
       about: 'About',
       skills: 'Skills',
       projects: 'Projects',
+      projectVisit: 'View site',
+      projectSoon: 'Coming soon',
+      projectImageSoon: 'Image coming soon',
+      projectsMore: 'More in GitHub',
       contact: 'Contact',
       downloadCV: 'Download CV',
       heroGreeting: 'Hi, I’m a',
@@ -311,6 +315,10 @@ buildStarfield(document.getElementById('starfield'), 130);
       about: 'Sobre',
       skills: 'Habilidades',
       projects: 'Projetos',
+      projectVisit: 'Ver site',
+      projectSoon: 'Em breve',
+      projectImageSoon: 'Imagem em breve',
+      projectsMore: 'Mais no GitHub',
       contact: 'Entre em contato',
       downloadCV: 'Baixar CV',
       heroGreeting: 'Olá, sou',
@@ -361,6 +369,7 @@ buildStarfield(document.getElementById('starfield'), 130);
   const languageFlag = languageButton?.querySelector('img');
   const menuButton = document.querySelector('.menu-toggle');
   const navigation = document.getElementById('primary-navigation');
+  const compactNavigation = window.matchMedia('(max-width: 900px)');
   const title = document.getElementById('home-title');
   const typingWrapper = document.querySelector('.hero-typing');
   const dynamicText = document.querySelector('.dynamic-text');
@@ -682,6 +691,11 @@ buildStarfield(document.getElementById('starfield'), 130);
   navigation?.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => setMenuOpen(false));
   });
+  document.addEventListener('click', event => {
+    if (menuButton?.getAttribute('aria-expanded') === 'true' &&
+        !event.target.closest('.navbar')) setMenuOpen(false);
+  });
+  compactNavigation.addEventListener('change', () => setMenuOpen(false));
   document.addEventListener('keydown', event => {
     if (event.key === 'Escape' && menuButton?.getAttribute('aria-expanded') === 'true') {
       setMenuOpen(false);

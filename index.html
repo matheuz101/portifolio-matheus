@@ -7,11 +7,10 @@
         <link rel="icon" href="favicon.png" type="image/x-icon">
         <link rel="preload" href="HARRYP__.TTF" as="font" type="font/ttf" crossorigin>
         <link rel="stylesheet" href="style.css">
-        <!-- pra voltar no fundo de antes usa background-original.css -->
         <link rel="stylesheet" href="background-stars.css">
-        <!-- responsividade guardada aq para usar quando o site tiver pronto
         <link rel="stylesheet" href="responsive.css">
-        -->
+        <link rel="stylesheet" href="responsive-sections.css">
+        <link rel="stylesheet" href="responsive-projects.css">
         <title>Portifólio | Matheus Augusto</title>
     </head>
     <body>
@@ -24,7 +23,6 @@
             </div>
         </div>
 
-        <!-- Sem JavaScript, a introdução permanece oculta e o site fica acessível. -->
         <button id="intro-screen" type="button" hidden aria-label="Reveal Matheus Augusto’s portfolio" data-i18n-aria-label="introLabel" aria-describedby="intro-hint">
             <span class="container-intro-name" aria-hidden="true">
                 <span id="intro-name"><span class="intro-letter">M</span><span class="intro-letter">A</span><span class="intro-letter">T</span><span class="intro-letter">H</span><span class="intro-letter">E</span><span class="intro-letter">U</span><span class="intro-letter">S</span></span>
@@ -36,6 +34,9 @@
 
             <header id="header">
                 <nav class="navbar" aria-label="Main navigation">
+                    <button class="menu-toggle" type="button" aria-label="Open menu" aria-controls="primary-navigation" aria-expanded="false">
+                        <span></span><span></span><span></span>
+                    </button>
                     <a href="#home" class="photo-header" aria-label="Matheus — Home">
                         <div class="container-photo-logo">
                             <img src="imgs/img(me)-header.JPG" alt="">
@@ -64,9 +65,6 @@
                             <img class="language-flag" src="imgs/usa-flag.png" alt="English" width="40" height="28">
                         </button>
 
-                        <button class="menu-toggle" type="button" aria-label="Open menu" aria-controls="primary-navigation" aria-expanded="false">
-                            <span></span><span></span><span></span>
-                        </button>
                     </div>
                 </nav>
             </header>
@@ -657,20 +655,31 @@
                 <h2 id="projects-title" data-i18n="projects">Projects</h2>
 
                 <div class="container-projects">
-                    <div class="project-slot">
+                    <div class="project-slot project-slot--mobile">
                         <a class="project-frame project-frame--gold project-frame--featured"
                            href="https://matheuz101.github.io/landing-lage/"
                            target="_blank" rel="noopener noreferrer"
-                           aria-label="Ver projeto Veneto Fitness (abre em uma nova aba)">
+                           aria-label="Ver projeto Veneto landingPage (abre em uma nova aba)">
                             <span class="project-window">
                                 <img class="project-preview" src="imgs/veneto-fitness-preview.png"
                                      alt="" width="1346" height="880">
                                 <span class="project-caption" aria-hidden="true">
-                                    <strong>Veneto - landingPage</strong>
+                                    <strong>Veneto landingPage</strong>
                                     <span>Ver projeto <span aria-hidden="true">↗</span></span>
                                 </span>
                             </span>
                         </a>
+                        <div class="project-mobile-details">
+                            <div class="project-tech" aria-label="Tecnologias: HTML, CSS e JavaScript">
+                                <img src="imgs/html-icon.png" alt="HTML" width="15" height="15" loading="lazy">
+                                <img src="imgs/css-3.png" alt="CSS" width="15" height="15" loading="lazy">
+                                <img src="imgs/js.png" alt="JavaScript" width="15" height="15" loading="lazy">
+                            </div>
+                            <div class="project-actions">
+                                <a class="project-action project-action--site" href="https://matheuz101.github.io/landing-lage/" target="_blank" rel="noopener noreferrer" data-i18n="projectVisit">Ver site</a>
+                                <a class="project-action project-action--code" href="https://github.com/matheuz101/landing-lage" target="_blank" rel="noopener noreferrer">GitHub</a>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="project-slot">
@@ -709,14 +718,68 @@
                             </span>
                         </div>
                     </div>
-                    <div class="project-slot" aria-hidden="true">
-                        <div class="project-frame project-frame--classic"></div>
+                    <div class="project-slot project-slot--mobile">
+                        <div class="project-frame project-frame--classic project-frame--featured" tabindex="0">
+                            <span class="project-window">
+                                <img class="project-preview" src="pets-img.jpg" alt="Nobre Patinha" width="678" height="452" loading="lazy" decoding="async">
+                                <span class="project-caption">
+                                    <strong>Nobre Patinha</strong>
+                                    <span data-i18n="projectSoon">Em breve</span>
+                                </span>
+                            </span>
+                        </div>
+                        <div class="project-mobile-details">
+                            <div class="project-tech" aria-label="Tecnologias: HTML, CSS e JavaScript">
+                                <img src="imgs/html-icon.png" alt="HTML" width="15" height="15" loading="lazy">
+                                <img src="imgs/css-3.png" alt="CSS" width="15" height="15" loading="lazy">
+                                <img src="imgs/js.png" alt="JavaScript" width="15" height="15" loading="lazy">
+                            </div>
+                            <div class="project-actions">
+                                <span class="project-action project-action--soon" data-i18n="projectSoon">Em breve</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="project-slot" aria-hidden="true">
-                        <div class="project-frame project-frame--bronze"></div>
+                    <div class="project-slot project-slot--mobile">
+                        <div class="project-frame project-frame--bronze project-frame--featured" tabindex="0">
+                            <span class="project-window">
+                                <img class="project-preview" src="onde-irBrasil.jpg" alt="UAI Brasil" width="1140" height="570" loading="lazy" decoding="async">
+                                <span class="project-caption">
+                                    <strong>UAI Brasil</strong>
+                                    <span data-i18n="projectSoon">Em breve</span>
+                                </span>
+                            </span>
+                        </div>
+                        <div class="project-mobile-details">
+                            <div class="project-tech" aria-label="Tecnologias: HTML, CSS e JavaScript">
+                                <img src="imgs/html-icon.png" alt="HTML" width="15" height="15" loading="lazy">
+                                <img src="imgs/css-3.png" alt="CSS" width="15" height="15" loading="lazy">
+                                <img src="imgs/js.png" alt="JavaScript" width="15" height="15" loading="lazy">
+                            </div>
+                            <div class="project-actions">
+                                <span class="project-action project-action--soon" data-i18n="projectSoon">Em breve</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="project-slot" aria-hidden="true">
-                        <div class="project-frame project-frame--gold"></div>
+                    <div class="project-slot project-slot--mobile">
+                        <div class="project-frame project-frame--gold project-frame--featured project-frame--coming-soon" tabindex="0">
+                            <span class="project-window">
+                                <span class="project-placeholder" data-i18n="projectImageSoon">Imagem em breve</span>
+                                <span class="project-caption">
+                                    <strong>Estude AI</strong>
+                                    <span data-i18n="projectSoon">Em breve</span>
+                                </span>
+                            </span>
+                        </div>
+                        <div class="project-mobile-details">
+                            <div class="project-tech" aria-label="Tecnologias: HTML, CSS e JavaScript">
+                                <img src="imgs/html-icon.png" alt="HTML" width="15" height="15" loading="lazy">
+                                <img src="imgs/css-3.png" alt="CSS" width="15" height="15" loading="lazy">
+                                <img src="imgs/js.png" alt="JavaScript" width="15" height="15" loading="lazy">
+                            </div>
+                            <div class="project-actions">
+                                <span class="project-action project-action--soon" data-i18n="projectSoon">Em breve</span>
+                            </div>
+                        </div>
                     </div>
                     <div class="project-slot">
                         <div class="project-frame project-frame--portrait project-frame--featured" tabindex="0">
@@ -744,6 +807,10 @@
                     </div>
 
                 </div>
+                <a class="projects-more" href="https://github.com/matheuz101" target="_blank" rel="noopener noreferrer">
+                    <span data-i18n="projectsMore">More in GitHub</span>
+                    <img src="imgs/github.png" alt="" width="22" height="22" loading="lazy">
+                </a>
             </section>
 
             <section id="contact" class="contact" aria-labelledby="contact-title">
