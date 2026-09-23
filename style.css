@@ -371,6 +371,11 @@ html::-webkit-scrollbar-thumb {
   min-width: 0;
 }
 
+/* A introdução transfere o foco para este contêiner, sem contornar a página. */
+#main-content[tabindex="-1"]:focus {
+  outline: none;
+}
+
 #main-content > section {
   width: calc(100% - 2 * var(--gutter));
   margin-inline: auto;
