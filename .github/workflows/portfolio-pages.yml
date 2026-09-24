@@ -34,8 +34,8 @@ jobs:
       - name: Preparar arquivos do portfólio
         run: |
           mkdir -p dist
-          # Inclui todos os estilos, fontes e bibliotecas usados pelas páginas.
-          cp *.html *.css *.js *.png *.TTF dist/
+          # Inclui as páginas, estilos, fontes, imagens e o currículo em PDF.
+          cp *.html *.css *.js *.png *.TTF *.pdf dist/
           cp -R imgs fonts vendor card-leetcode dist/
           touch dist/.nojekyll
 
