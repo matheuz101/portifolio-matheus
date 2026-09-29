@@ -1,4 +1,4 @@
-﻿/* Layout fluido a partir do frame iPhone 13 & 14 (390 px). */
+﻿
 :root {
   --header-height: calc(clamp(76px, 7.5vw, 104px) + env(safe-area-inset-top));
 }
@@ -6,7 +6,7 @@
 html { background: var(--bg_base); }
 #main-content { z-index: 2; padding-top: var(--header-height); }
 
-/* Fixo até o rodapé; o espaço inicial e as âncoras compensam sua altura. */
+
 #header {
   position: fixed;
   top: 0;

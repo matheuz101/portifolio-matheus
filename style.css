@@ -1,6 +1,6 @@
 @import url('fonts/fonts.css');
 
-/* Harry P: fonte local dos nomes na introdução e no header. */
+/* Harry P fonte */
 @font-face {
   font-family: "HarryPotterFont";
   src: url("HARRYP__.TTF") format("truetype");
@@ -75,7 +75,7 @@ html {
   display: none !important;
 }
 
-/* INTRO: as letras flutuam separadamente; o nome inteiro recebe o zoom. */
+
 html.intro-pending,
 .intro-pending body {
   overflow: hidden;
@@ -236,7 +236,7 @@ html.intro-pending {
   }
 }
 
-/* O trilho ocupa uma faixa própria; a barra nativa continua arrastável. */
+
 html::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -371,7 +371,7 @@ html::-webkit-scrollbar-thumb {
   min-width: 0;
 }
 
-/* A introdução transfere o foco para este contêiner, sem contornar a página. */
+
 #main-content[tabindex="-1"]:focus {
   outline: none;
 }
@@ -920,7 +920,7 @@ html::-webkit-scrollbar-thumb {
   content: "";
 }
 
-/* GitHub statistics card */
+
 .ghcard-frame {
   width: 100%;
   max-width: 556px;
@@ -955,7 +955,7 @@ html::-webkit-scrollbar-thumb {
 
 .ghcard-titletext {
   margin: 0;
-  /* Fonte do sistema para o título do GitHub. */
+  
   font-family: "Arial Black", Arial, sans-serif;
   font-size: 18px;
   font-weight: 900;
@@ -1007,7 +1007,7 @@ html::-webkit-scrollbar-thumb {
   border: 1px solid #000;
   border-radius: 4px;
   background: var(--ghcard-card);
-  /* Fonte serifada do sistema para o conteúdo do GitHub. */
+  
   font-family: "Times New Roman", Times, serif;
 }
 
@@ -1084,7 +1084,7 @@ html::-webkit-scrollbar-thumb {
   border: 1px solid #4b3535;
   background: var(--ghcard-pink);
   color: #000;
-  /* Botão GitHub: tenta Arial, depois Helvetica e depois a reserva genérica. */
+
   font-family: Arial, Helvetica, sans-serif;
   font-size: 12px;
   font-weight: 700;
@@ -1104,7 +1104,7 @@ html::-webkit-scrollbar-thumb {
   outline-offset: 3px;
 }
 
-/* LEETCODE: estilos isolados do card integrado */
+/* LEETCODE */
 .lc-frame {
   container: leetcode-card / inline-size;
   min-width: 0;
@@ -1113,7 +1113,7 @@ html::-webkit-scrollbar-thumb {
   text-align: left;
   line-height: normal;
 }
-/* Ubuntu regular local: font-family: LeetCodeUbuntu; font-weight: 400. */
+
 @font-face {
   font-family: LeetCodeUbuntu;
   font-style: normal;
@@ -1121,7 +1121,7 @@ html::-webkit-scrollbar-thumb {
   font-display: swap;
   src: url("card-leetcode/assets/ubuntu-regular.ttf") format("truetype");
 }
-/* Ubuntu negrito local: mesma família, selecionada com font-weight: 700. */
+
 @font-face {
   font-family: LeetCodeUbuntu;
   font-style: normal;
@@ -1462,7 +1462,7 @@ html::-webkit-scrollbar-thumb {
 }
 /* FIM LEETCODE */
 
-/* PROJECTS: galeria de quadros. Cada variante recorta as margens do seu PNG. */
+
 .projects {
   width: min(var(--page), 100% - 2 * var(--gutter));
   margin-inline: auto;
@@ -1494,7 +1494,7 @@ html::-webkit-scrollbar-thumb {
   aspect-ratio: 1.15;
 }
 
-/* Centraliza a última linha, compensando as molduras de 100% e 65% nas pontas. */
+
 .project-slot:nth-last-child(-n + 3) {
   position: relative;
   left: 8.75%;
@@ -1513,7 +1513,7 @@ html::-webkit-scrollbar-thumb {
     filter 250ms ease;
 }
 
-/* O PNG fica acima da prévia; somente a abertura deixa o projeto aparecer. */
+
 .project-frame::after {
   position: absolute;
   z-index: 2;
@@ -1611,7 +1611,7 @@ html::-webkit-scrollbar-thumb {
   text-decoration: none;
 }
 
-/* Cada abertura sobrepõe levemente a borda interna para evitar frestas. */
+
 .project-window {
   position: absolute;
   z-index: 1;
@@ -1692,7 +1692,7 @@ html::-webkit-scrollbar-thumb {
   padding-block: 144px 48px;
 }
 
-/* Altere apenas esta largura para reutilizar a carta em uma grade. */
+
 .skill-card {
   --letter-width: 320px;
   --fold-duration: 550ms;
@@ -1725,7 +1725,7 @@ html::-webkit-scrollbar-thumb {
   user-select: none;
 }
 
-/* O pergaminho ocupa só parte do PNG: o recorte exclui o fundo marrom. */
+
 
 .env-paper {
   background-image: url("imgs/bg-letter.png");
@@ -1741,7 +1741,7 @@ html::-webkit-scrollbar-thumb {
   box-shadow: 0 1px 3px #0006;
 }
 
-/* A dobra inferior fica na frente das laterais do envelope. */
+
 .env-pocket {
   z-index: 2;
   inset: 0;
@@ -1780,7 +1780,7 @@ html::-webkit-scrollbar-thumb {
     transform 400ms ease,
     opacity 180ms ease;
 }
-/* A origem da rotação acompanha a borda superior do corpo. */
+
 .env-flap {
   z-index: 4;
   inset: 0 0 auto;
@@ -1797,7 +1797,7 @@ html::-webkit-scrollbar-thumb {
   border-radius: 2% 2% 0 0 / 5% 5% 0 0;
 }
 
-/* A aba e o selo têm margens transparentes próprias. */
+
 .env-flap img {
   top: -2.8%;
   left: -1.55%;
@@ -1825,7 +1825,7 @@ html::-webkit-scrollbar-thumb {
   transition-delay: 220ms;
 }
 
-/* CONTATO: pílula expansível e modal que nasce na posição do botão. */
+
 .contact {
   padding: 32px var(--gutter) 152px;
   color: #fff;
@@ -1929,7 +1929,7 @@ html::-webkit-scrollbar-thumb {
   outline-offset: 5px;
 }
 
-/* O rodapé mantém o cinza e as três colunas do Figma. */
+
 .site-footer {
   position: relative;
   z-index: 1;
@@ -2014,7 +2014,7 @@ html::-webkit-scrollbar-thumb {
   margin-inline: auto;
 }
 
-/* Dialog nativo mantém o restante da página inerte enquanto está aberto. */
+
 html.contact-modal-open {
   overflow: hidden;
 }
@@ -2298,7 +2298,7 @@ html.contact-modal-open {
   color: #ffb4ab;
 }
 
-/* Regras locais: o restante da responsividade continua em responsive.css. */
+/* Regras locais o resto tá nos outros css*/
 @media (max-width: 760px) {
   .contact { padding-block: 40px 100px; }
   .contact > h2 { margin-bottom: 100px; font-size: 34px; }

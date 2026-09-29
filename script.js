@@ -1,4 +1,4 @@
-// Independent of the portfolio scripts: an error elsewhere cannot trap the intro.
+
 (() => {
   'use strict';
 
@@ -13,7 +13,7 @@
   let revealTimer;
   let protectedContent = [];
 
-  // Release the page if parsing or initialization is interrupted.
+ 
   const bootTimer = window.setTimeout(() => {
     if (!initialized) finish(false);
   }, 10000);
@@ -46,7 +46,7 @@
 
     if (moveFocus && focusIsOnIntro && main && !main.inert) {
       if (!main.hasAttribute('tabindex')) main.setAttribute('tabindex', '-1');
-      // Keep deep links and the browser's restored scroll position intact.
+      
       main.focus({ preventScroll: true });
     }
   }
@@ -79,7 +79,7 @@
 
       root.classList.add('intro-revealing');
       screen.classList.add('is-revealing');
-      // CSS animation events can be lost when switching tabs or stylesheets.
+      
       revealTimer = window.setTimeout(finish, 1500);
     } catch {
       finish(false);
@@ -158,7 +158,7 @@ function buildStarfield(container, count) {
 
 buildStarfield(document.getElementById('starfield'), 130);
 
-// Indicador ferroviário: apenas acompanha a rolagem nativa.
+
 (() => {
   'use strict';
 
@@ -183,7 +183,7 @@ buildStarfield(document.getElementById('starfield'), 130);
   function render() {
     frame = 0;
     if (needsMeasure) {
-      // Geometria só muda com o conteúdo/viewport, não a cada evento de scroll.
+      
       scrollRange = Math.max(0, scroller.scrollHeight - root.clientHeight);
       travel = Math.max(0, track.clientHeight - carriage.offsetHeight - 4);
       needsMeasure = false;
@@ -532,7 +532,7 @@ buildStarfield(document.getElementById('starfield'), 130);
         return;
       }
       panel.addEventListener('transitionend', onCloseTransition);
-      // The timer also completes closing if the transition is interrupted.
+      
       closeTimer = setTimeout(finishClose, 300);
     }
 
@@ -541,7 +541,7 @@ buildStarfield(document.getElementById('starfield'), 130);
       const origin = openButton.getBoundingClientRect();
       document.documentElement.classList.add('contact-modal-open');
       dialog.classList.remove('is-open', 'is-closing');
-      // Measure the panel at its final size before animating it from the button.
+      
       panel.style.transition = 'none';
       panel.style.transform = 'none';
       dialog.showModal();
@@ -551,7 +551,7 @@ buildStarfield(document.getElementById('starfield'), 130);
       const scale = Math.max(origin.width / destination.width, origin.height / destination.height);
       panel.style.setProperty('--contact-origin-scale', String(Math.max(0.08, Math.min(0.9, scale))));
       panel.style.removeProperty('transform');
-      // Commit the initial transform so the next frame can transition to the modal.
+      
       panel.getBoundingClientRect();
       panel.style.removeProperty('transition');
       openButton.setAttribute('aria-expanded', 'true');
@@ -663,7 +663,7 @@ buildStarfield(document.getElementById('starfield'), 130);
         form.reset();
         setFormStatus('contactSuccess', 'success');
       } catch {
-        // A lost response does not guarantee that the service failed to send.
+        
         setFormStatus('contactUnconfirmed', 'error');
       } finally {
         clearTimeout(timeout);
@@ -716,7 +716,7 @@ buildStarfield(document.getElementById('starfield'), 130);
   updateTilt();
 })();
 
-// GitHub Profile Stats Card — busca dados reais em tempo real.
+
 const GITHUB_USERNAME = 'matheuz101';
 
 function formatNumber(num) {
@@ -776,7 +776,7 @@ async function loadGithubStats() {
 
 loadGithubStats();
 
-;// LEETCODE: comportamento isolado do card integrado
+; // COMEÇO LEETCODE
 (() => {
   'use strict';
   const frame = document.getElementById('lc-portfolio-card');
@@ -819,7 +819,7 @@ loadGithubStats();
 
     return api;
   })();
-  // O caminho pertence ao card, mesmo com o código no script principal.
+  
   const dataUrl = new URL(frame.dataset.lcDataUrl, document.baseURI);
   const byId = id => frame.querySelector(`#lc-${id}`);
   const tooltip = byId('heatmap-tooltip');
@@ -924,7 +924,7 @@ loadGithubStats();
 
 // FIM LEETCODE 
 
-// interatividade e acessibilidade para a animação das cartas na seção skills
+
 
 document.querySelectorAll('.skill-card').forEach((card) => {
   function setOpen(isOpen) {
@@ -938,7 +938,7 @@ document.querySelectorAll('.skill-card').forEach((card) => {
 
     setOpen(card.classList.contains('open'));
 
-    // O botão nativo também responde a Enter, Espaço e toque.
+    
     card.addEventListener('click', () => {
       setOpen(!card.classList.contains('open'));
     });

@@ -1,5 +1,4 @@
-/* About and skills follow the iPhone 13 & 14 composition from Figma.
-   Keep the real text, statistics and interactive envelopes at every size. */
+
 @media (max-width: 1100px) {
   .about {
     width: calc(100% - 2 * var(--gutter));
