@@ -319,6 +319,8 @@ buildStarfield(document.getElementById('starfield'), 130);
       projectSoon: 'Em breve',
       projectImageSoon: 'Imagem em breve',
       projectsMore: 'Mais no GitHub',
+      Project1Description: 'Trata-se de uma landing page institucional desenvolvida para a Lage, focada em apresentar a marca e os seus serviços de forma moderna e atrativa. O projeto destaca a proposta de valor do negócio, utilizando uma estrutura visual limpa e focada na experiência do utilizador. Conta com secções bem definidas para exibições de conteúdo, elementos interativos e chamadas para ação (call to action) direcionadas à conversão. A interface foi construída para garantir navegação intuitiva tanto em computadores como em dispositivos móveis. A página serve como um cartão de visita digital eficiente para captar novos clientes e fortalecer a presença online da empresa',
+      
       contact: 'Entre em contato',
       downloadCV: 'Baixar CV',
       heroGreeting: 'Olá, sou',
