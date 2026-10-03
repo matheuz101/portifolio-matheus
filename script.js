@@ -261,6 +261,14 @@ buildStarfield(document.getElementById('starfield'), 130);
       skills: 'Skills',
       projects: 'Projects',
       projectVisit: 'View site',
+      projectView: 'View project',
+      projectClose: 'Close',
+      projectTechnologies: 'Technologies',
+      projectTechSoon: 'Technology details coming soon.',
+      projectDetailsSoon: 'Details about this project will be available soon.',
+      projectSiteSoon: 'Project site coming soon',
+      projectCodeSoon: 'Project repository coming soon',
+      Project1Description: 'This is a corporate landing page developed for Lage, designed to showcase the brand and its services in a modern, engaging way. The project highlights the business\'s value proposition through a clean visual layout focused on user experience. It features clearly defined content sections, interactive elements, and conversion-oriented calls to action. The interface was built to ensure intuitive navigation on both desktop and mobile devices. The page serves as an effective digital calling card for attracting new clients and strengthening the company\'s online presence.',
       projectSoon: 'Coming soon',
       projectImageSoon: 'Image coming soon',
       projectsMore: 'More in GitHub',
@@ -316,6 +324,13 @@ buildStarfield(document.getElementById('starfield'), 130);
       skills: 'Habilidades',
       projects: 'Projetos',
       projectVisit: 'Ver site',
+      projectView: 'Ver projeto',
+      projectClose: 'Fechar',
+      projectTechnologies: 'Tecnologias',
+      projectTechSoon: 'Detalhes das tecnologias em breve.',
+      projectDetailsSoon: 'Os detalhes deste projeto estarão disponíveis em breve.',
+      projectSiteSoon: 'Site do projeto em breve',
+      projectCodeSoon: 'Repositório do projeto em breve',
       projectSoon: 'Em breve',
       projectImageSoon: 'Imagem em breve',
       projectsMore: 'Mais no GitHub',
@@ -428,6 +443,13 @@ buildStarfield(document.getElementById('starfield'), 130);
     document.querySelector('.photo-header')?.setAttribute('aria-label', texts.homeLabel);
     document.querySelector('.social-links')?.setAttribute('aria-label', texts.socialLabel);
     document.querySelector('.download-cv[aria-disabled="true"]')?.setAttribute('title', texts.cvStatus);
+    document.querySelectorAll('[data-project]').forEach(trigger => {
+      const name = trigger.querySelector('.project-caption strong')?.textContent;
+      trigger.setAttribute('aria-label', `${texts.projectView} ${name}`);
+    });
+    document.querySelectorAll('.project-modal__action[aria-disabled="true"]').forEach(link => {
+      link.title = texts[link.dataset.unavailableLabel];
+    });
     setMenuOpen(false);
   }
 
@@ -484,6 +506,114 @@ buildStarfield(document.getElementById('starfield'), 130);
     });
 
     jQuery.fn.tilt.getValues.call(tiltInstance);
+  }
+
+  function setupProjects() {
+    const dialog = document.getElementById('project-modal');
+    const panel = dialog?.querySelector('.project-modal__panel');
+    const title = document.getElementById('project-modal-title');
+    const description = document.getElementById('project-modal-description');
+    const technologies = document.getElementById('project-modal-tech-list');
+    const pendingTechnologies = document.getElementById('project-modal-tech-pending');
+    const closeButton = document.getElementById('project-modal-close');
+    const siteLink = document.getElementById('project-modal-site');
+    const githubLink = document.getElementById('project-modal-github');
+    if (!dialog || !panel || !closeButton) return;
+
+    // Additional projects reuse their gallery content until their details are supplied.
+    const projects = {
+      veneto: {
+        description: 'Project1Description',
+        technologies: ['HTML', 'CSS', 'JavaScript'],
+        site: 'https://matheuz101.github.io/landing-lage/',
+        github: 'https://github.com/matheuz101/landing-lage'
+      }
+    };
+    let activeTrigger = null;
+    let pointerStartedOutside = false;
+
+    function setProjectLink(link, url, unavailableLabel) {
+      if (url) {
+        link.href = url;
+        link.removeAttribute('aria-disabled');
+        link.removeAttribute('tabindex');
+        link.removeAttribute('title');
+        delete link.dataset.unavailableLabel;
+      } else {
+        link.removeAttribute('href');
+        link.setAttribute('aria-disabled', 'true');
+        link.setAttribute('tabindex', '-1');
+        link.dataset.unavailableLabel = unavailableLabel;
+        link.title = translations[currentLanguage][unavailableLabel];
+      }
+    }
+
+    document.querySelectorAll('[data-project]').forEach(trigger => {
+      trigger.addEventListener('click', () => {
+        if (dialog.open) return;
+        const project = projects[trigger.dataset.project] || {};
+        const slot = trigger.closest('.project-slot');
+        const techNames = project.technologies || [...slot.querySelectorAll('.project-tech img')].map(image => image.alt);
+        title.textContent = trigger.querySelector('.project-caption strong').textContent;
+        description.dataset.i18n = project.description || 'projectDetailsSoon';
+        description.textContent = translations[currentLanguage][description.dataset.i18n];
+        technologies.replaceChildren(...techNames.map(name => {
+          const tag = document.createElement('li');
+          tag.textContent = name;
+          return tag;
+        }));
+        technologies.hidden = techNames.length === 0;
+        pendingTechnologies.hidden = techNames.length > 0;
+        setProjectLink(siteLink, project.site, 'projectSiteSoon');
+        setProjectLink(githubLink, project.github, 'projectCodeSoon');
+        activeTrigger = trigger;
+        pointerStartedOutside = false;
+        dialog.showModal();
+        document.documentElement.classList.add('project-modal-open');
+        trigger.setAttribute('aria-expanded', 'true');
+        title.focus({ preventScroll: true });
+        dialog.scrollTop = 0;
+      });
+    });
+
+    function closeProject() {
+      if (dialog.open) dialog.close();
+    }
+
+    closeButton.addEventListener('click', closeProject);
+    dialog.addEventListener('close', () => {
+      document.documentElement.classList.remove('project-modal-open');
+      activeTrigger?.setAttribute('aria-expanded', 'false');
+      activeTrigger?.focus({ preventScroll: true });
+      activeTrigger = null;
+      pointerStartedOutside = false;
+    });
+    dialog.addEventListener('cancel', event => {
+      event.preventDefault();
+      closeProject();
+    });
+    dialog.addEventListener('pointerdown', event => {
+      pointerStartedOutside = !panel.contains(event.target);
+    });
+    dialog.addEventListener('pointercancel', () => { pointerStartedOutside = false; });
+    dialog.addEventListener('click', event => {
+      if (pointerStartedOutside && !panel.contains(event.target)) closeProject();
+      pointerStartedOutside = false;
+    });
+    dialog.addEventListener('keydown', event => {
+      if (event.key !== 'Tab') return;
+      const focusable = [...panel.querySelectorAll('button, a[href]')].filter(element => element.getClientRects().length);
+      const first = focusable[0];
+      const last = focusable.at(-1);
+      const onControl = focusable.includes(document.activeElement);
+      if (event.shiftKey && (document.activeElement === first || !onControl)) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && (document.activeElement === last || !onControl)) {
+        event.preventDefault();
+        first.focus();
+      }
+    });
   }
 
   function setupContact() {
@@ -679,6 +809,7 @@ buildStarfield(document.getElementById('starfield'), 130);
     });
   }
 
+  setupProjects();
   setupContact();
 
   languageButton?.addEventListener('click', () => {

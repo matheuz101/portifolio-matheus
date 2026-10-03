@@ -11,6 +11,7 @@
         <link rel="stylesheet" href="responsive.css">
         <link rel="stylesheet" href="responsive-sections.css">
         <link rel="stylesheet" href="responsive-projects.css">
+        <link rel="stylesheet" href="project-modal.css">
         <title>Portifólio Matheus Augusto</title>
     </head>
     <body>
@@ -656,10 +657,9 @@
 
                 <div class="container-projects">
                     <div class="project-slot project-slot--mobile">
-                        <a class="project-frame project-frame--gold project-frame--featured"
-                           href="https://matheuz101.github.io/landing-lage/"
-                           target="_blank" rel="noopener noreferrer"
-                           aria-label="Ver projeto Veneto landingPage (abre em uma nova aba)">
+                        <button class="project-frame project-frame--gold project-frame--featured" type="button"
+                                data-project="veneto" aria-haspopup="dialog" aria-controls="project-modal" aria-expanded="false"
+                                aria-label="View project Veneto landingPage">
                             <span class="project-window">
                                 <img class="project-preview" src="imgs/veneto-fitness-preview.png"
                                      alt="" width="1346" height="880">
@@ -668,7 +668,7 @@
                                     <span>Ver projeto <span aria-hidden="true">↗</span></span>
                                 </span>
                             </span>
-                        </a>
+                        </button>
                         <div class="project-mobile-details">
                             <div class="project-tech" aria-label="Tecnologias: HTML, CSS e JavaScript">
                                 <img src="imgs/html-icon.png" alt="HTML" width="15" height="15" loading="lazy">
@@ -683,7 +683,7 @@
                     </div>
 
                     <div class="project-slot">
-                        <div class="project-frame project-frame--portrait project-frame--featured" tabindex="0">
+                        <button class="project-frame project-frame--portrait project-frame--featured" type="button" data-project="lundgren" aria-haspopup="dialog" aria-controls="project-modal" aria-expanded="false" aria-label="View project Lundgren Hotel">
                             <span class="project-window">
                                 <img class="project-preview" src="imgs/hotel-fazenda.jpg"
                                      alt="Lundgren Hotel" width="365" height="547" loading="lazy" decoding="async">
@@ -692,10 +692,10 @@
                                     <span>Ver projeto <span aria-hidden="true">↗</span></span>
                                 </span>
                             </span>
-                        </div>
+                        </button>
                     </div>
                     <div class="project-slot">
-                        <div class="project-frame project-frame--ornate project-frame--featured" tabindex="0">
+                        <button class="project-frame project-frame--ornate project-frame--featured" type="button" data-project="wedding" aria-haspopup="dialog" aria-controls="project-modal" aria-expanded="false" aria-label="View project Wedding Agency">
                             <span class="project-window">
                                 <img class="project-preview" src="imgs/agência-casamento.jpg"
                                      alt="Wedding Agency" width="452" height="678" loading="lazy" decoding="async">
@@ -704,10 +704,10 @@
                                     <span>Ver projeto <span aria-hidden="true">↗</span></span>
                                 </span>
                             </span>
-                        </div>
+                        </button>
                     </div>
                     <div class="project-slot">
-                        <div class="project-frame project-frame--dark project-frame--featured" tabindex="0">
+                        <button class="project-frame project-frame--dark project-frame--featured" type="button" data-project="travel" aria-haspopup="dialog" aria-controls="project-modal" aria-expanded="false" aria-label="View project My Travel">
                             <span class="project-window">
                                 <img class="project-preview" src="imgs/app-roteiroViagens.webp"
                                      alt="My Travel" width="600" height="900" loading="lazy" decoding="async">
@@ -716,10 +716,10 @@
                                     <span>Ver projeto <span aria-hidden="true">↗</span></span>
                                 </span>
                             </span>
-                        </div>
+                        </button>
                     </div>
                     <div class="project-slot project-slot--mobile">
-                        <div class="project-frame project-frame--classic project-frame--featured" tabindex="0">
+                        <button class="project-frame project-frame--classic project-frame--featured" type="button" data-project="patinha" aria-haspopup="dialog" aria-controls="project-modal" aria-expanded="false" aria-label="View project Nobre Patinha">
                             <span class="project-window">
                                 <img class="project-preview" src="imgs/pets-img.jpg" alt="Nobre Patinha" width="678" height="452" loading="lazy" decoding="async">
                                 <span class="project-caption">
@@ -727,7 +727,7 @@
                                     <span data-i18n="projectSoon">Em breve</span>
                                 </span>
                             </span>
-                        </div>
+                        </button>
                         <div class="project-mobile-details">
                             <div class="project-tech" aria-label="Tecnologias: HTML, CSS e JavaScript">
                                 <img src="imgs/html-icon.png" alt="HTML" width="15" height="15" loading="lazy">
@@ -740,7 +740,7 @@
                         </div>
                     </div>
                     <div class="project-slot project-slot--mobile">
-                        <div class="project-frame project-frame--bronze project-frame--featured" tabindex="0">
+                        <button class="project-frame project-frame--bronze project-frame--featured" type="button" data-project="uai" aria-haspopup="dialog" aria-controls="project-modal" aria-expanded="false" aria-label="View project UAI Brasil">
                             <span class="project-window">
                                 <img class="project-preview" src="imgs/onde-irBrasil.jpg" alt="UAI Brasil" width="1140" height="570" loading="lazy" decoding="async">
                                 <span class="project-caption">
@@ -748,7 +748,7 @@
                                     <span data-i18n="projectSoon">Em breve</span>
                                 </span>
                             </span>
-                        </div>
+                        </button>
                         <div class="project-mobile-details">
                             <div class="project-tech" aria-label="Tecnologias: HTML, CSS e JavaScript">
                                 <img src="imgs/html-icon.png" alt="HTML" width="15" height="15" loading="lazy">
@@ -761,7 +761,7 @@
                         </div>
                     </div>
                     <div class="project-slot project-slot--mobile">
-                        <div class="project-frame project-frame--gold project-frame--featured project-frame--coming-soon" tabindex="0">
+                        <button class="project-frame project-frame--gold project-frame--featured project-frame--coming-soon" type="button" data-project="estude" aria-haspopup="dialog" aria-controls="project-modal" aria-expanded="false" aria-label="View project Estude AI">
                             <span class="project-window">
                                 <span class="project-placeholder" data-i18n="projectImageSoon">Imagem em breve</span>
                                 <span class="project-caption">
@@ -769,7 +769,7 @@
                                     <span data-i18n="projectSoon">Em breve</span>
                                 </span>
                             </span>
-                        </div>
+                        </button>
                         <div class="project-mobile-details">
                             <div class="project-tech" aria-label="Tecnologias: HTML, CSS e JavaScript">
                                 <img src="imgs/html-icon.png" alt="HTML" width="15" height="15" loading="lazy">
@@ -782,7 +782,7 @@
                         </div>
                     </div>
                     <div class="project-slot">
-                        <div class="project-frame project-frame--portrait project-frame--featured" tabindex="0">
+                        <button class="project-frame project-frame--portrait project-frame--featured" type="button" data-project="school" aria-haspopup="dialog" aria-controls="project-modal" aria-expanded="false" aria-label="View project School System">
                             <span class="project-window">
                                 <img class="project-preview" src="imgs/sistema-escolar.jpg"
                                      alt="School System" width="408" height="612" loading="lazy" decoding="async">
@@ -791,10 +791,10 @@
                                     <span>Ver projeto <span aria-hidden="true">↗</span></span>
                                 </span>
                             </span>
-                        </div>
+                        </button>
                     </div>
                     <div class="project-slot">
-                        <div class="project-frame project-frame--ornate project-frame--featured" tabindex="0">
+                        <button class="project-frame project-frame--ornate project-frame--featured" type="button" data-project="osteria" aria-haspopup="dialog" aria-controls="project-modal" aria-expanded="false" aria-label="View project Osteria D'ouro">
                             <span class="project-window">
                                 <img class="project-preview" src="imgs/restaurante-osteria.avif"
                                      alt="Osteria D'ouro" width="500" height="749" loading="lazy" decoding="async">
@@ -803,7 +803,7 @@
                                     <span>Ver projeto <span aria-hidden="true">↗</span></span>
                                 </span>
                             </span>
-                        </div>
+                        </button>
                     </div>
 
                 </div>
@@ -911,26 +911,32 @@
             </div>
         </dialog>
         
-        <dialog id="projet1-modal" class="project1-modal" aria-labelledby="project-modal-title" aria-describedby="project-modal-description">
-            <div class="project-panel">
-                <header class="project-modal-header">
-                    <h2 id="project-modal-title">Landing Page - Veneto</h2>
+        <dialog id="project-modal" class="project-modal" aria-labelledby="project-modal-title" aria-describedby="project-modal-description">
+            <div class="project-modal__panel">
+                <button id="project-modal-close" class="project-modal__close" type="button" aria-label="Close" data-i18n-aria-label="projectClose"><span aria-hidden="true">×</span></button>
+                <header class="project-modal__header">
+                    <h2 id="project-modal-title" tabindex="-1" autofocus>Veneto landingPage</h2>
                 </header>
-                <p id="project-description" class="project-description" data-i18n="Project1Description">
+                <p id="project-modal-description" class="project-modal__description" data-i18n="Project1Description">
                     This is a corporate landing page developed for Lage, designed to showcase the brand and its services in a modern, engaging way. The project highlights the business's value proposition through a clean visual layout focused on user experience. It features clearly defined content sections, interactive elements, and conversion-oriented calls to action. The interface was built to ensure intuitive navigation on both desktop and mobile devices. The page serves as an effective digital calling card for attracting new clients and strengthening the company's online presence.
                 </p>
-                <div class="tech-section">
-                    <h3 class="tech-title" data-i18n="TechTitle">
-                        <span>&lt;/&lt;</span> Technologies
+                <section class="project-modal__technologies" aria-labelledby="project-modal-tech-title">
+                    <h3 id="project-modal-tech-title">
+                        <span aria-hidden="true">&lt;/&gt;</span> <span data-i18n="projectTechnologies">Technologies</span>
                     </h3>
-                    <div class="tech-list">
-                        <span class="tech-tag">HTML</span>
-                        <span class="tech-tag">CSS</span>
-                        <span class="tech-tag">JavaScript</span>
-                    </div>
-                </div>
-                <div class="projects-modal-actions">
-                    
+                    <ul id="project-modal-tech-list" class="project-modal__tech-list">
+                        <li>HTML</li>
+                        <li>CSS</li>
+                        <li>JavaScript</li>
+                    </ul>
+                    <p id="project-modal-tech-pending" class="project-modal__pending" data-i18n="projectTechSoon" hidden>Technology details coming soon.</p>
+                </section>
+                <div class="project-modal__actions">
+                    <a id="project-modal-site" class="project-modal__action project-modal__action--site" href="https://matheuz101.github.io/landing-lage/" target="_blank" rel="noopener noreferrer" data-i18n="projectVisit">View site</a>
+                    <a id="project-modal-github" class="project-modal__action project-modal__action--github" href="https://github.com/matheuz101/landing-lage" target="_blank" rel="noopener noreferrer">
+                        <span class="project-modal__github-icon" aria-hidden="true"><img src="imgs/project-github.svg" alt=""></span>
+                        <span>Github</span>
+                    </a>
                 </div>
             </div>
         </dialog>

@@ -1,0 +1,241 @@
+/* Project details follow the contact modal's size and visual style. */
+@font-face {
+  font-family: "Manrope Project";
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url("fonts/manrope-contact-latin-ext.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "Manrope Project";
+  font-style: normal;
+  font-weight: 200 800;
+  font-display: swap;
+  src: url("fonts/manrope-contact-latin.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2194, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+.project-frame[type="button"] {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  text-align: left;
+}
+
+html.project-modal-open {
+  overflow: hidden;
+}
+
+.project-modal {
+  --project-modal-surface: #303030;
+  --project-modal-gold: #d9b866;
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  padding: 24px;
+  overflow: auto;
+  overscroll-behavior: contain;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font: 400 14px/1.6 "Manrope Project", "Manrope", sans-serif;
+}
+
+.project-modal[open] {
+  display: grid;
+  place-items: center;
+  align-items: safe center;
+}
+
+.project-modal::backdrop {
+  background: rgb(0 0 0 / 55%);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+.project-modal__panel {
+  position: relative;
+  width: min(560px, 100%);
+  min-width: 0;
+  padding: 22px 32px 26px;
+  border: 1px solid rgb(255 255 255 / 70%);
+  border-radius: 30px;
+  background: var(--project-modal-surface);
+  box-shadow: 0 24px 100px rgb(0 0 0 / 35%);
+  animation: project-modal-enter 240ms ease-out;
+}
+
+.project-modal__close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgb(255 255 255 / 65%);
+  border-radius: 9px;
+  background: transparent;
+  color: #fff;
+  font: 400 26px/1 Arial, sans-serif;
+  cursor: pointer;
+  transition: background-color 180ms ease, border-color 180ms ease;
+}
+
+.project-modal__close:hover {
+  border-color: var(--rail-gold);
+  background: rgb(255 255 255 / 8%);
+}
+
+.project-modal__header {
+  margin: 0 20px 24px;
+  padding-inline: 12px;
+  text-align: center;
+}
+
+.project-modal__header h2 {
+  font: 700 28px/1.15 "Cormorant", serif;
+  overflow-wrap: anywhere;
+}
+
+.project-modal__header h2:focus {
+  outline: none;
+}
+
+.project-modal__description {
+  color: rgb(255 255 255 / 85%);
+  overflow-wrap: anywhere;
+}
+
+.project-modal__technologies {
+  margin-top: 24px;
+}
+
+.project-modal__technologies h3 {
+  font: 700 13px/1.5 "Manrope Project", "Manrope", sans-serif;
+  text-transform: uppercase;
+}
+
+.project-modal__tech-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+  list-style: none;
+}
+
+.project-modal__tech-list li {
+  display: grid;
+  place-items: center;
+  min-height: 32px;
+  padding: 6px 16px;
+  border: 1px solid rgb(255 255 255 / 40%);
+  border-radius: 14px;
+  background: rgb(0 0 0 / 20%);
+  font: 400 12px/1.5 "Manrope Project", "Manrope", sans-serif;
+}
+
+.project-modal__pending {
+  margin-top: 12px;
+  color: rgb(255 255 255 / 75%);
+  font-size: 12px;
+}
+
+.project-modal__actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+  margin-top: 28px;
+}
+
+.project-modal__action {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-width: 0;
+  min-height: 46px;
+  padding: 10px 14px;
+  border: 1px solid rgb(255 255 255 / 70%);
+  border-radius: 14px;
+  color: #fff;
+  font: 400 14px/1.4 "Manrope Project", "Manrope", sans-serif;
+  text-align: center;
+  text-decoration: none;
+  transition: filter 180ms ease, transform 180ms ease;
+}
+
+.project-modal__action--site {
+  border-color: var(--project-modal-gold);
+  background: var(--project-modal-gold);
+  color: #171511;
+}
+
+.project-modal__action--github {
+  background: #000;
+}
+
+.project-modal__github-icon {
+  position: relative;
+  flex: 0 0 24px;
+  width: 24px;
+  height: 24px;
+}
+
+.project-modal__github-icon img {
+  position: absolute;
+  top: -.22679px;
+  left: .8px;
+  display: block;
+  transform: scale(.685714);
+  transform-origin: top left;
+}
+
+.project-modal__action[aria-disabled="true"] {
+  opacity: .45;
+}
+
+.project-modal__action:is(:hover, :focus-visible):not([aria-disabled="true"]) {
+  filter: brightness(1.15);
+  transform: translateY(-2px);
+}
+
+.project-modal :is(a, button):focus-visible {
+  outline: 2px solid var(--rail-gold);
+  outline-offset: 5px;
+}
+
+@keyframes project-modal-enter {
+  from { opacity: 0; transform: translateY(16px) scale(.98); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (max-width: 480px) {
+  .project-modal { padding: 14px; }
+  .project-modal__panel { padding: 24px 18px; border-radius: 24px; }
+  .project-modal__header { margin-inline: 18px; }
+  .project-modal__header h2 { font-size: 26px; }
+  .project-modal__close { top: 10px; right: 10px; width: 32px; height: 32px; }
+  .project-modal__actions { gap: 10px; }
+  .project-modal__action { padding-inline: 10px; gap: 8px; font-size: 13px; }
+}
+
+@media (max-height: 800px) and (min-width: 481px) {
+  .project-modal { padding-block: 18px; }
+  .project-modal__panel { padding-block: 18px; }
+  .project-modal__header { margin-bottom: 18px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-modal__panel { animation: none; }
+  .project-modal__action, .project-modal__close { transition: none; }
+  .project-modal__action:is(:hover, :focus-visible) { transform: none; }
+}
